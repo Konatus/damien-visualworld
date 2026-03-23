@@ -3,10 +3,14 @@ name: CI/CD Pipeline - VisualWorld
 on:
   push:
     branches:
-      - main      # Production uniquement pour le moment
+      - main      # Production
+      - test      # Test
+      - dev       # Development
   pull_request:
     branches:
       - main
+      - test
+      - dev
 
 env:
   NODE_VERSION: '18.20.8'
@@ -56,7 +60,101 @@ jobs:
         working-directory: ./api
         run: npm run lint || true
 
-  # Job 3: Déploiement sur PRODUCTION
+  # Job 3: Déploiement sur DEV
+  deploy-dev:
+    name: Déploiement DEV
+    runs-on: ubuntu-latest
+    needs: [frontend-build, api-test]
+    if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+    environment:
+      name: development
+      url: http://dev.damien.konatus.site
+    
+    steps:
+      - name: Déploiement DEV via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            set -e
+            echo "🔧 Déploiement DEV..."
+            
+            # Se déplacer dans le répertoire DEV
+            cd /root/visualworld-dev
+            
+            # Pull des dernières modifications
+            git fetch origin dev
+            git reset --hard origin/dev
+            
+            # Installation des dépendances API
+            echo "📦 Installation des dépendances API..."
+            cd /root/visualworld-dev/api
+            npm install
+            
+            # Installation des dépendances Frontend
+            echo "📦 Installation des dépendances Frontend..."
+            cd /root/visualworld-dev/front
+            npm install --legacy-peer-deps
+            
+            # Redémarrage des services avec PM2
+            echo "🔄 Redémarrage des services DEV..."
+            pm2 restart visualworld-api-dev visualworld-front-dev --update-env || \
+            (pm2 start /root/visualworld-dev/ecosystem.config.json && pm2 save)
+            
+            echo "✅ Déploiement DEV terminé avec succès!"
+            pm2 list | grep -E "visualworld.*dev"
+
+  # Job 4: Déploiement sur TEST
+  deploy-test:
+    name: Déploiement TEST
+    runs-on: ubuntu-latest
+    needs: [frontend-build, api-test]
+    if: github.ref == 'refs/heads/test' && github.event_name == 'push'
+    environment:
+      name: test
+      url: http://test.damien.konatus.site
+    
+    steps:
+      - name: Déploiement TEST via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            set -e
+            echo "🧪 Déploiement TEST..."
+            
+            # Se déplacer dans le répertoire TEST
+            cd /root/visualworld-test
+            
+            # Pull des dernières modifications
+            git fetch origin test
+            git reset --hard origin/test
+            
+            # Installation des dépendances API
+            echo "📦 Installation des dépendances API..."
+            cd /root/visualworld-test/api
+            npm install
+            
+            # Installation des dépendances Frontend
+            echo "📦 Installation des dépendances Frontend..."
+            cd /root/visualworld-test/front
+            npm install --legacy-peer-deps
+            
+            # Redémarrage des services avec PM2
+            echo "🔄 Redémarrage des services TEST..."
+            pm2 restart visualworld-api-test visualworld-front-test --update-env || \
+            (pm2 start /root/visualworld-test/ecosystem.config.json && pm2 save)
+            
+            echo "✅ Déploiement TEST terminé avec succès!"
+            pm2 list | grep -E "visualworld.*test"
+
+  # Job 5: Déploiement sur PRODUCTION
   deploy-prod:
     name: Déploiement PRODUCTION
     runs-on: ubuntu-latest
@@ -111,13 +209,12 @@ jobs:
             
             # Redémarrage des services avec PM2
             echo "🔄 Redémarrage des services..."
-            pm2 restart visualworld-api || pm2 start npm --name visualworld-api -- start --prefix $APP_DIR/api
-            pm2 restart visualworld-front || pm2 start npm --name visualworld-front -- run serve --prefix $APP_DIR/front
-            pm2 save
+            pm2 restart visualworld-api visualworld-front --update-env || \
+            (pm2 start $APP_DIR/ecosystem.config.json && pm2 save)
             
             echo "✅ Déploiement PRODUCTION terminé avec succès!"
       
-      - name: Vérification de santé
+      - name: Vérification de santé PROD
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -161,20 +258,31 @@ jobs:
             echo "✅ Déploiement validé!"
             pm2 status
 
-  # Job 4: Notification
+  # Job 6: Notification
   notify:
     name: Notification
     runs-on: ubuntu-latest
-    needs: [deploy-prod]
+    needs: [deploy-dev, deploy-test, deploy-prod]
     if: always()
     
     steps:
+      - name: Notification de succès DEV
+        if: needs.deploy-dev.result == 'success'
+        run: echo "✅ Déploiement DEV réussi sur http://dev.damien.konatus.site/"
+      
+      - name: Notification de succès TEST
+        if: needs.deploy-test.result == 'success'
+        run: echo "✅ Déploiement TEST réussi sur http://test.damien.konatus.site/"
+      
       - name: Notification de succès PROD
         if: needs.deploy-prod.result == 'success'
         run: echo "✅ Déploiement PRODUCTION réussi sur http://damien.konatus.site/"
       
       - name: Notification d'échec
-        if: needs.deploy-prod.result == 'failure'
+        if: |
+          needs.deploy-dev.result == 'failure' ||
+          needs.deploy-test.result == 'failure' ||
+          needs.deploy-prod.result == 'failure'
         run: |
-          echo "❌ Le déploiement PRODUCTION a échoué"
+          echo "❌ Un ou plusieurs déploiements ont échoué"
           exit 1
