@@ -2,8 +2,8 @@ module.exports = {
     runtimeCompiler: true,
     devServer: {
         port: 3333,
-        host: "213.165.95.153",
-        public: "213.165.95.153:3333",
+        host: "87.106.255.115",
+        public: "87.106.255.115:3333",
         disableHostCheck: true,
         proxy: {
             "/api": {

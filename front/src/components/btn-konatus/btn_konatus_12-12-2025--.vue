@@ -695,7 +695,7 @@ export default {
         baseUrl() {
             return location.hostname === "localhost"
                 ? "http://localhost:8080"
-                : "http://213.165.95.153:8080";
+                : "http://87.106.255.115:8080";
         },
 
         nowTime() {

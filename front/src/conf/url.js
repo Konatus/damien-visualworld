@@ -1,7 +1,7 @@
 let baseUrl =
     global.location.hostname === "localhost"
         ? "http://localhost:8080" // ease development work on localhost (withtout oauth-proxy)
-        : "http://213.165.95.153:8080"; // Using explicit IP address for development
+        : "http://87.106.255.115:8080"; // Using explicit IP address for development
 export default {
     // SocketIO
     socket: `${baseUrl}`,

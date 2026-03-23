@@ -64,7 +64,7 @@ export default async (express) => {
   if (!CONF.IS_PRODUCTION) {
     express.use(
       Cors({
-        origin: ["http://localhost", "http://213.165.95.153:3333"],
+        origin: ["http://localhost", "http://87.106.255.115:3333"],
         optionsSuccessStatus: 200,
       })
     );

@@ -179,7 +179,7 @@ class CapacityCalculator {
     }
 }
 
-const API_URL = 'http://213.165.95.153:8080/api/board-io?worldId=68b70d885688a422d9513890&boardId=690a1d27ee300fc9f6ee5ae9';
+const API_URL = 'http://87.106.255.115:8080/api/board-io?worldId=68b70d885688a422d9513890&boardId=690a1d27ee300fc9f6ee5ae9';
 
 if (require.main === module) {
     const calculator = new CapacityCalculator();

@@ -185,7 +185,7 @@ export default {
                     const baseUrl =
                         location.hostname === "localhost"
                             ? "http://localhost:8080"
-                            : "http://213.165.95.153:8080";
+                            : "http://87.106.255.115:8080";
                     const capacityUrl = `${baseUrl}/api/get-team-capacity`;
                     console.log("🔗 URL appelée:", capacityUrl);
 
@@ -316,7 +316,7 @@ export default {
                 const baseUrl =
                     location.hostname === "localhost"
                         ? "http://localhost:8080"
-                        : "http://213.165.95.153:8080";
+                        : "http://87.106.255.115:8080";
                 const apiUrl = `${baseUrl}/api/save-input-data-optimization`;
                 console.log("URL de l'API:", apiUrl);
                 const response = await fetch(apiUrl, {
@@ -373,7 +373,7 @@ export default {
                 const baseUrl =
                     location.hostname === "localhost"
                         ? "http://localhost:8080"
-                        : "http://213.165.95.153:8080";
+                        : "http://87.106.255.115:8080";
                 const apiUrl = `${baseUrl}/api/recalculate-iterations`;
 
                 console.log("🔗 URL de recalcul:", apiUrl);
@@ -426,7 +426,7 @@ export default {
                 const baseUrl =
                     location.hostname === "localhost"
                         ? "http://localhost:8080"
-                        : "http://213.165.95.153:8080";
+                        : "http://87.106.255.115:8080";
                 const apiUrl = `${baseUrl}/api/recalculate-iterations/status`;
 
                 const response = await fetch(apiUrl);
