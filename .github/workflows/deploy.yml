@@ -29,8 +29,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.20.8'
-          cache: 'npm'
-          cache-dependency-path: front/package-lock.json
       
       - name: Installation des dépendances Frontend
         working-directory: ./front
@@ -60,8 +58,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.20.8'
-          cache: 'npm'
-          cache-dependency-path: api/package-lock.json
       
       - name: Installation des dépendances API
         working-directory: ./api
