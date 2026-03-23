@@ -51,3 +51,9 @@ temp/
 
 # CSV files
 *.csv
+
+# Backup archives
+*.tar.gz
+*.zip
+*.bak
+*.dump
