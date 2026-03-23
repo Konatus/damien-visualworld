@@ -1,0 +1,29 @@
+﻿L'opération de génération a démarré...
+1>------ Début de la génération : Projet : Programme, Configuration : Release x64 ------
+1>AbstractGeneticAlgo.cpp
+1>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\numeric(34,26): warning C4244: '=' : conversion de 'double' en '_Ty', perte possible de données
+1>        with
+1>        [
+1>            _Ty=int
+1>        ]
+1>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\numeric(43): message : voir la référence à l'instanciation de la fonction modèle '_Ty std::accumulate<_InIt,_Ty,std::plus<void>>(const _InIt,const _InIt,_Ty,_Fn)' en cours de compilation
+1>        with
+1>        [
+1>            _Ty=int,
+1>            _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,
+1>            _Fn=std::plus<void>
+1>        ]
+1>D:\dev\C++\Fonctionnel__modeDebug0\Fonctionnel\Programme\AbstractGeneticAlgo.cpp(592): message : voir la référence à l'instanciation de la fonction modèle '_Ty std::accumulate<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>,int>(const _InIt,const _InIt,_Ty)' en cours de compilation
+1>        with
+1>        [
+1>            _Ty=int,
+1>            _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<double>>>
+1>        ]
+1>Génération de code en cours
+1>0 of 1625 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+1>  0 functions were new in current compilation
+1>  0 functions had inline decision re-evaluated but remain unchanged
+1>Fin de la génération du code
+1>Programme.vcxproj -> D:\dev\C++\Fonctionnel__modeDebug0\Fonctionnel\Programme\x64\Release\Programme.exe
+1>Génération du projet "Programme.vcxproj" terminée.
+========== Génération : 1 a réussi, 0 a échoué, 0 à jour, 0 a été ignoré ==========

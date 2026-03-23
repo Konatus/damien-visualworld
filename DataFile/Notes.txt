@@ -1,0 +1,15 @@
+InputV0 : InputDataOptimizationV0-- Intial depuis VW
+InputV1 : InputDataOptimizationV1-- Après prétraitement ( Calcul due_date des tickets, dutaion et due_date)
+          Duration = load/FTE
+		  due_date_ticket = due_date_projet (end_date_engage)
+		  Due_start_date = due_date-duration (Start_date_engage)
+
+OutputV1 : Output-- Après optimisation (calcul Start_date)
+		   Algorithmed'optimisation (Start_date_demandé)
+OutputV2 : Output-- Après calcul Itération et Due-itération
+
+			Iteration = Int ( (start_date-current_date) / iteration duration ) +1 
+			Due_iteration = Int ( (Due_start_date-current_date) / iteration duration ) +1
+			
+			Avec : iteration duration = 14
+			       current_date = 01-01-2025

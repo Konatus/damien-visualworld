@@ -1,0 +1,20 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Select</title>
+  <desc>Visual World</desc>
+  <g>
+    <path d="M3.00098 1.74561H0.750977V3.99561" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M18.751 1.74561H21.001V3.99561" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6.00098 1.74561H9.00098" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12.001 1.74561H15.751" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M3.00098 21.2456H0.750977V18.9956" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6.00098 21.2456H9.00098" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M0.750977 6.99561V9.9956" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M0.750977 12.9956V15.9956" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M21.001 6.99561V9.9956" stroke="#171E36" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M17.4766 20.332V23.9987" stroke="#171E36" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M17.4766 12.9985V16.6652" stroke="#171E36" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15.6667 18.5229H12" stroke="#171E36" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M23.0006 18.5229H19.334" stroke="#171E36" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M17.4757 17.7056C17.067 17.7056 16.6582 18.1143 16.6582 18.5231C16.6582 18.9318 17.067 19.3406 17.4757 19.3406C17.8845 19.3406 18.2932 18.9318 18.2932 18.5231C18.2932 18.1143 17.8845 17.7056 17.4757 17.7056Z" fill="#171E36"/>
+  </g>
+</svg>

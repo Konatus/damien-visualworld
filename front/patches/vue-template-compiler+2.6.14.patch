@@ -1,0 +1,357 @@
+diff --git a/node_modules/vue-template-compiler/browser.js b/node_modules/vue-template-compiler/browser.js
+index 92d3b5d..954cfdc 100644
+--- a/node_modules/vue-template-compiler/browser.js
++++ b/node_modules/vue-template-compiler/browser.js
+@@ -458,7 +458,7 @@
+       if (html === last) {
+         options.chars && options.chars(html);
+         if (!stack.length && options.warn) {
+-          options.warn(("Mal-formatted tag at end of template: \"" + html + "\""), { start: index + html.length });
++          options.warn("mal_formatted_tag_at_end_of_template", { start: index + html.length });
+         }
+         break
+       }
+@@ -565,7 +565,7 @@
+             options.warn
+           ) {
+             options.warn(
+-              ("tag <" + (stack[i].tag) + "> has no matching end tag."),
++              "has_no_matching_end_tag",
+               { start: stack[i].start, end: stack[i].end }
+             );
+           }
+@@ -1336,7 +1336,7 @@
+   function set (target, key, val) {
+     if (isUndef(target) || isPrimitive(target)
+     ) {
+-      warn(("Cannot set reactive property on undefined, null, or primitive value: " + ((target))));
++      warn("non_reactive_property");
+     }
+     if (Array.isArray(target) && isValidArrayIndex(key)) {
+       target.length = Math.max(target.length, key);
+@@ -1984,8 +1984,7 @@
+       modifiers.prevent && modifiers.passive
+     ) {
+       warn(
+-        'passive and prevent can\'t be used together. ' +
+-        'Passive handler can\'t prevent default event.',
++        'passive_and_prevent',
+         range
+       );
+     }
+@@ -2139,10 +2138,7 @@
+       var res = parseText(staticClass, options.delimiters);
+       if (res) {
+         warn(
+-          "class=\"" + staticClass + "\": " +
+-          'Interpolation inside attributes has been removed. ' +
+-          'Use v-bind or the colon shorthand instead. For example, ' +
+-          'instead of <div class="{{ val }}">, use <div :class="val">.',
++          "mustache_in_attribute",
+           el.rawAttrsMap['class']
+         );
+       }
+@@ -2199,10 +2195,7 @@
+         var res = parseText(staticStyle, options.delimiters);
+         if (res) {
+           warn(
+-            "style=\"" + staticStyle + "\": " +
+-            'Interpolation inside attributes has been removed. ' +
+-            'Use v-bind or the colon shorthand instead. For example, ' +
+-            'instead of <div style="{{ val }}">, use <div :style="val">.',
++            "mustache_in_attribute",
+             el.rawAttrsMap['style']
+           );
+         }
+@@ -2836,9 +2829,7 @@
+           });
+         } else {
+           warnOnce(
+-            "Component template should contain exactly one root element. " +
+-            "If you are using v-if on multiple elements, " +
+-            "use v-else-if to chain them instead.",
++            "exactly_one_root",
+             { start: element.start }
+           );
+         }
+@@ -2895,15 +2886,13 @@
+     function checkRootConstraints (el) {
+       if (el.tag === 'slot' || el.tag === 'template') {
+         warnOnce(
+-          "Cannot use <" + (el.tag) + "> as component root element because it may " +
+-          'contain multiple nodes.',
++          "slot_or_template_on_root",
+           { start: el.start }
+         );
+       }
+       if (el.attrsMap.hasOwnProperty('v-for')) {
+         warnOnce(
+-          'Cannot use v-for on stateful component root element because ' +
+-          'it renders multiple elements.',
++          'v_for_on_root',
+           el.rawAttrsMap['v-for']
+         );
+       }
+@@ -2946,8 +2935,7 @@
+           attrs.forEach(function (attr) {
+             if (invalidAttributeRE.test(attr.name)) {
+               warn$1(
+-                "Invalid dynamic argument expression: attribute names cannot contain " +
+-                "spaces, quotes, <, >, / or =.",
++                "attribute_non_letter_char",
+                 {
+                   start: attr.start + attr.name.indexOf("["),
+                   end: attr.start + attr.name.length
+@@ -2960,9 +2948,7 @@
+         if (isForbiddenTag(element) && !isServerRendering()) {
+           element.forbidden = true;
+           warn$1(
+-            'Templates should only be responsible for mapping the state to the ' +
+-            'UI. Avoid placing tags with side-effects in your templates, such as ' +
+-            "<" + tag + ">" + ', as they will not be parsed.',
++            'style_or_script_tag',
+             { start: element.start }
+           );
+         }
+@@ -3021,12 +3007,12 @@
+           {
+             if (text === template) {
+               warnOnce(
+-                'Component template requires a root element, rather than just text.',
++                'text_on_root',
+                 { start: start }
+               );
+             } else if ((text = text.trim())) {
+               warnOnce(
+-                ("text \"" + text + "\" outside root element will be ignored."),
++                ("text_outside_root"),
+                 { start: start }
+               );
+             }
+@@ -3165,7 +3151,7 @@
+       {
+         if (el.tag === 'template') {
+           warn$1(
+-            "<template> cannot be keyed. Place the key on real elements instead.",
++            "key_on_template",
+             getRawBindingAttr(el, 'key')
+           );
+         }
+@@ -3174,8 +3160,7 @@
+           var parent = el.parent;
+           if (iterator && iterator === exp && parent && parent.tag === 'transition-group') {
+             warn$1(
+-              "Do not use v-for index as key on <transition-group> children, " +
+-              "this is the same as not using keys.",
++              "key_on_transition_group_children",
+               getRawBindingAttr(el, 'key'),
+               true /* tip */
+             );
+@@ -3202,7 +3187,7 @@
+         extend(el, res);
+       } else {
+         warn$1(
+-          ("Invalid v-for expression: " + exp),
++          "invalid_v_for",
+           el.rawAttrsMap['v-for']
+         );
+       }
+@@ -3258,8 +3243,7 @@
+       });
+     } else {
+       warn$1(
+-        "v-" + (el.elseif ? ('else-if="' + el.elseif + '"') : 'else') + " " +
+-        "used on element <" + (el.tag) + "> without corresponding v-if.",
++        "v_else_without_v_if",
+         el.rawAttrsMap[el.elseif ? 'v-else-if' : 'v-else']
+       );
+     }
+@@ -3273,8 +3257,7 @@
+       } else {
+         if (children[i].text !== ' ') {
+           warn$1(
+-            "text \"" + (children[i].text.trim()) + "\" between v-if and v-else(-if) " +
+-            "will be ignored.",
++            "text_between_v_if_and_v_else",
+             children[i]
+           );
+         }
+@@ -3306,10 +3289,7 @@
+       /* istanbul ignore if */
+       if (slotScope) {
+         warn$1(
+-          "the \"scope\" attribute for scoped slots have been deprecated and " +
+-          "replaced by \"slot-scope\" since 2.5. The new \"slot-scope\" attribute " +
+-          "can also be used on plain elements in addition to <template> to " +
+-          "denote scoped slots.",
++          "scope_is_deprecated",
+           el.rawAttrsMap['scope'],
+           true
+         );
+@@ -3319,9 +3299,7 @@
+       /* istanbul ignore if */
+       if (el.attrsMap['v-for']) {
+         warn$1(
+-          "Ambiguous combined usage of slot-scope and v-for on <" + (el.tag) + "> " +
+-          "(v-for takes higher priority). Use a wrapper <template> for the " +
+-          "scoped slot to make it clearer.",
++          "v_for_and_slot_scope",
+           el.rawAttrsMap['slot-scope'],
+           true
+         );
+@@ -3350,14 +3328,13 @@
+           {
+             if (el.slotTarget || el.slotScope) {
+               warn$1(
+-                "Unexpected mixed usage of different slot syntaxes.",
++                "different_slot_syntaxes",
+                 el
+               );
+             }
+             if (el.parent && !maybeComponent(el.parent)) {
+               warn$1(
+-                "<template v-slot> can only appear at the root level inside " +
+-                "the receiving component",
++                "template_v_slot_not_root",
+                 el
+               );
+             }
+@@ -3376,20 +3353,19 @@
+           {
+             if (!maybeComponent(el)) {
+               warn$1(
+-                "v-slot can only be used on components or <template>.",
++                "v_slot_not_template_nor_component",
+                 slotBinding$1
+               );
+             }
+             if (el.slotScope || el.slotTarget) {
+               warn$1(
+-                "Unexpected mixed usage of different slot syntaxes.",
++                "different_slot_syntaxes",
+                 el
+               );
+             }
+             if (el.scopedSlots) {
+               warn$1(
+-                "To avoid scope ambiguity, the default slot should also use " +
+-                "<template> syntax when there are other named slots.",
++                "default_v_slot_not_template.",
+                 slotBinding$1
+               );
+             }
+@@ -3425,7 +3401,7 @@
+         name = 'default';
+       } else {
+         warn$1(
+-          "v-slot shorthand syntax requires a slot name.",
++          "v_slot_without_slot_name",
+           binding
+         );
+       }
+@@ -3443,9 +3419,7 @@
+       el.slotName = getBindingAttr(el, 'name');
+       if (el.key) {
+         warn$1(
+-          "`key` does not work on <slot> because slots are abstract outlets " +
+-          "and can possibly expand into multiple elements. " +
+-          "Use the key on a wrapping element instead.",
++          "key_on_slot",
+           getRawBindingAttr(el, 'key')
+         );
+       }
+@@ -3488,7 +3462,7 @@
+             value.trim().length === 0
+           ) {
+             warn$1(
+-              ("The value for a v-bind expression cannot be empty. Found in \"v-bind:" + name + "\"")
++              ("empty_v_bind")
+             );
+           }
+           if (modifiers) {
+@@ -3575,10 +3549,7 @@
+           var res = parseText(value, delimiters);
+           if (res) {
+             warn$1(
+-              name + "=\"" + value + "\": " +
+-              'Interpolation inside attributes has been removed. ' +
+-              'Use v-bind or the colon shorthand instead. For example, ' +
+-              'instead of <div id="{{ val }}">, use <div :id="val">.',
++              'mustache_in_attribute',
+               list[i]
+             );
+           }
+@@ -3621,7 +3592,7 @@
+       if (
+         map[attrs[i].name] && !isIE && !isEdge
+       ) {
+-        warn$1('duplicate attribute: ' + attrs[i].name, attrs[i]);
++        warn$1('duplicate_attribute');
+       }
+       map[attrs[i].name] = attrs[i].value;
+     }
+@@ -3778,8 +3749,7 @@
+       // value will throw an error.
+       if (tag === 'input' && type === 'file') {
+         warn$2(
+-          "<" + (el.tag) + " v-model=\"" + value + "\" type=\"file\">:\n" +
+-          "File inputs are read only. Use a v-on:change listener instead.",
++          "v_model_on_file_input",
+           el.rawAttrsMap['v-model']
+         );
+       }
+@@ -3882,8 +3852,7 @@
+       if (value$1 && !typeBinding) {
+         var binding = el.attrsMap['v-bind:value'] ? 'v-bind:value' : ':value';
+         warn$2(
+-          binding + "=\"" + value$1 + "\" conflicts with v-model on the same element " +
+-          'because the latter already expands to a value binding internally',
++          'value_and_v_model',
+           el.rawAttrsMap[binding]
+         );
+       }
+@@ -4251,7 +4220,7 @@
+ 
+   function on (el, dir) {
+     if (dir.modifiers) {
+-      warn("v-on without argument does not support modifiers.");
++      warn("modified_empty_on");
+     }
+     el.wrapListeners = function (code) { return ("_g(" + code + "," + (dir.value) + ")"); };
+   }
+@@ -4377,7 +4346,7 @@
+       }
+       if (!key) {
+         state.warn(
+-          "v-once can only be used inside v-for that is keyed. ",
++          "required_key_for_v_once_in_v_for",
+           el.rawAttrsMap['v-once']
+         );
+         return genElement(el, state)
+@@ -4907,7 +4876,7 @@
+       try {
+         new Function(("var " + ident + "=_"));
+       } catch (e) {
+-        warn(("invalid " + type + " \"" + ident + "\" in expression: " + (text.trim())), range);
++        warn("syntax_error", range);
+       }
+     }
+   }
+@@ -4919,15 +4888,12 @@
+       var keywordMatch = exp.replace(stripStringRE, '').match(prohibitedKeywordRE);
+       if (keywordMatch) {
+         warn(
+-          "avoid using JavaScript keyword as property name: " +
+-          "\"" + (keywordMatch[0]) + "\"\n  Raw expression: " + (text.trim()),
++          "javascript_reserved_word",
+           range
+         );
+       } else {
+         warn(
+-          "invalid expression: " + (e.message) + " in\n\n" +
+-          "    " + exp + "\n\n" +
+-          "  Raw expression: " + (text.trim()) + "\n",
++          "syntax_error",
+           range
+         );
+       }

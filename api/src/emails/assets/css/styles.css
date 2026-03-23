@@ -1,0 +1,47 @@
+table.email-content{
+    background-image: url('../img/visual-world-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:#171E36;
+}
+table table{
+    margin:auto;
+    background-color:#ffffff;
+    max-width:600px;
+}
+h2{
+    color: #3ca9de;
+}
+.btn-link{
+    color: #fff;
+    background-color:#3ca9de ;
+    text-decoration: none;
+    border-radius: 3px;
+    padding: 6px 10px;
+    display: inline-block;
+}
+ul{
+    display: inline-block;
+    text-align: left;
+    padding: 0;
+}
+ul > *{
+    list-style-type: none;
+}
+ul.limit-reached li{
+    display: table;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: #f4f4f5;
+    color: #909399;
+    margin: 4px 0px;
+    
+}
+ul.limit-reached li.error{
+    color: #F56C6C;
+    background: #fef0f0;
+}
+ul.limit-reached li.warning{
+    color: #E6A23C;
+    background: #fdf6ec;
+}

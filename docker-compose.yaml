@@ -1,0 +1,54 @@
+version: '2'
+
+services:
+  mongodb-primary:
+  # mongodb-primary-2:
+    image: 'bitnami/mongodb:latest'
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      # - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary-2
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+    ports:
+      - "27017:27017"
+    volumes:
+      - 'mongodb_master_data:/bitnami'
+      # - 'mongodb_master_data_2:/bitnami'
+
+  mongodb-secondary:
+  # mongodb-secondary-2:
+    image: 'bitnami/mongodb:latest'
+    depends_on:
+      - mongodb-primary
+      # - mongodb-primary-2
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary
+      # - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary-2
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      # - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary-2
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+
+  mongodb-arbiter:
+  # mongodb-arbiter-2:
+    image: 'bitnami/mongodb:latest'
+    depends_on:
+      - mongodb-primary
+      # - mongodb-primary-2
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
+      # - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter-2
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      # - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary-2
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+
+volumes:
+  mongodb_master_data:
+  # mongodb_master_data_2:
+    driver: local

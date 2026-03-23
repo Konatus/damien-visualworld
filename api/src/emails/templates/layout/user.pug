@@ -1,0 +1,12 @@
+extends ../index.pug
+block content
+    h2=$t.__("email.template.user.title")
+    - var { lastname, firstname } = identity
+    if(boardName)
+        p=$t.__("email.template.user.added-on-board", { lastname, firstname, grant, boardName, worldName })
+        p=$t.__("email.template.user.connect-as", { email })
+        a(class='btn-link' href=link)=$t.__("email.template.user.link-board", { boardName, worldName })
+    else
+        p=$t.__("email.template.user.added-on-world", { email, lastname, firstname, grant, worldName })
+        p=$t.__("email.template.user.connect-as", { email })
+        a(class='btn-link' href=link)=$t.__("email.template.user.link-world")

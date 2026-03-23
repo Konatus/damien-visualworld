@@ -1,0 +1,36 @@
+FROM node:14 AS node-builder
+ENV CYPRESS_INSTALL_BINARY 0
+
+COPY ./front ./
+COPY ./.git ./
+
+# TODO: remove if possible, now necessary to apply patch-package on postinstall
+RUN npm set unsafe-perm true
+
+RUN echo "{ \"commit\": \""$(git rev-parse HEAD)"\", \"branch\": \""$(git symbolic-ref HEAD)"\" }" > ./src/info.json
+RUN npm install --quiet && npm run build
+
+FROM httpd:2.4-alpine AS front
+
+#Custom changes
+RUN apk update && apk upgrade
+RUN apk -q add libcap
+
+#Change access righs to conf, logs, bin from root to www-data
+RUN chown -hR www-data:www-data /usr/local/apache2/
+
+#setcap to bind to privileged ports as non-root
+RUN setcap 'cap_net_bind_service=+ep' /usr/local/apache2/bin/httpd
+RUN getcap /usr/local/apache2/bin/httpd
+
+COPY --from=node-builder ./dist/ /usr/local/apache2/htdocs/
+
+# IE template used in OAuth2 Proxy
+COPY --from=node-builder ./static/   /usr/local/apache2/htdocs/static/
+
+
+
+#Run as a www-data
+USER www-data
+
+EXPOSE 8080

@@ -1,0 +1,13 @@
+diff --git a/node_modules/chart.js/dist/Chart.js b/node_modules/chart.js/dist/Chart.js
+index e9c53c3..19799f8 100644
+--- a/node_modules/chart.js/dist/Chart.js
++++ b/node_modules/chart.js/dist/Chart.js
+@@ -7630,7 +7630,7 @@ function watchForRender(node, handler) {
+ 	// `offsetParent` property will force a reflow and re-evaluate the CSS animation.
+ 	// https://gist.github.com/paulirish/5d52fb081b3570c81e3a#box-metrics
+ 	// https://github.com/chartjs/Chart.js/issues/4737
+-	expando.reflow = !!node.offsetParent;
++	// expando.reflow = !!node.offsetParent;
+ 
+ 	node.classList.add(CSS_RENDER_MONITOR);
+ }

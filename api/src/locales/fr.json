@@ -1,0 +1,214 @@
+{
+  "vw-object": {
+    "note": {
+      "name": "Note",
+      "description": "Modèle d'objet générique"
+    },
+    "url": {
+      "name": "URL",
+      "description": "Modèle d'objet url"
+    },
+    "image": {
+      "name": "Image",
+      "description": "Modèle d'objet image"
+    },
+    "draw": {
+      "name": "Dessin",
+      "description": "Modèle d'objet dessin"
+    },
+    "jira": {
+      "name": "Jira",
+      "description": "Modèle us Jira"
+    },
+    "svg": {
+      "description": "description",
+      "name": "svg"
+    },
+    "help":{
+      "description": "Aide en ligne. Description des instructions à suivre + flèches",
+      "name": "Aide"
+    },
+    "action": {
+      "description": "",
+      "name": "Action"
+    },
+    "token": {
+      "description": "Jeton / Gommette",
+      "name": "Jeton"
+    },
+    "object-over": {
+      "description": "",
+      "name": "objectOver"
+    },
+    "dice": {
+      "description": "Dé avec choix du score minimum et maximum",
+      "name": "Dé multifaces"
+    },
+    "dice-6": {
+      "description": "",
+      "name": "Dé à 6 faces"
+    },
+    "title": {
+      "description": "",
+      "name": "Titre"
+    },
+    "linked": {
+      "description": "",
+      "name": "Linked"
+    },
+    "difficulty": {
+      "description": "",
+      "name": "Difficulté"
+    },
+    "question": {
+      "description": "",
+      "name": "Question"
+    },
+    "idea": {
+      "description": "",
+      "name": "Idée"
+    },
+    "rectangular-shape": {
+      "description": "",
+      "name": "Forme Rectangle"
+    },
+    "oval-shape": {
+      "description": "",
+      "name": "Forme Ovale"
+    },
+    "losenge-shape": {
+      "description": "",
+      "name": "Forme Losange"
+    },
+    "factory-shape": {
+      "description": "",
+      "name": "Forme Usine"
+    },
+    "hexagon-shape": {
+      "description": "",
+      "name": "Forme Hexagone"
+    },
+    "star-shape": {
+      "description": "",
+      "name": "Forme Etoile"
+    },
+    "arrow-shape": {
+      "description": "",
+      "name": "Forme Flèche"
+    },
+    "triangle-shape": {
+      "description": "",
+      "name": "Forme Triangle"
+    },
+    "story": {
+      "description": "",
+      "name": "Story"
+    },
+    "magic-column": {
+      "description": "",
+      "name": "Colonne magique"
+    },
+    "count-area": {
+      "description": "",
+      "name": "Zone & comptage"
+    },
+    "polling-area": {
+      "description": "",
+      "name": "Zone de vote"
+    },
+    "feature": {
+      "description": "",
+      "name": "Feature"
+    },
+    "epic": {
+      "description": "",
+      "name": "Epic"
+    },
+    "calendar": {
+      "description": "",
+      "name": "Calendar"
+    },
+    "text": {
+      "description": "",
+      "name": "Texte"
+    },
+    "actor": {
+      "description": "",
+      "name": "Acteur"
+    },
+    "web-page": {
+      "description": "",
+      "name": "Page Web"
+    }
+  },
+  "vw-links": {
+    "simple": {
+      "name": "Lien simple",
+      "description": ""
+    },
+    "parent": {
+      "name": "Parent",
+      "description": "la flèche pointe vers l'ascendant direct (le parent)"
+    },
+    "jira-issue": {
+      "name": "jira issue",
+      "description": ""
+    },
+    "jira-parent": {
+      "name": "jira parent",
+      "description": ""
+    }
+  },
+  "grant": {
+    "administrator": "Administrateur",
+    "modeler": "Modeleur",
+    "animator": "Animateur",
+    "participant": "Participant",
+    "observer": "Observateur"
+  },
+  "email": {
+    "subject": {
+      "user": "Bienvenue sur Visual World",
+      "guest": "Vous êtes invité sur Visual World",
+      "limit-reached": "Votre monde Visual World a atteint ses limites ",
+      "owner": "Bienvenue sur Visual World"
+    },
+    "template": {
+      "hello": "Bonjour {{{username}}}",
+      "team": "L'équipe Visual World",
+      "ignore": "Si vous n'êtes pas l'origine de cette action veuillez ne pas cliquer",
+      "limit-reached": {
+        "title": "Un peu à l'étroit ?",
+        "body": "Sur le monde {{{worldName}}} vous avez atteint les limites de votre licence actuelle.",
+        "link": "Je demande une extension de licence",
+        "label": "Voici votre niveau d’utilisation actuel :​",
+        "jira-project": "Projets Jira",
+        "user": "Utilisateurs",
+        "guest": "Invités",
+        "db": "Base de données (en Go)"
+      },
+      "user": {
+        "title": "Félicitations !",
+        "added-on-world": "{{{firstname}}} {{{lastname}}} vient de vous ajouter comme {{{grant}}} sur le monde {{{worldName}}}.",
+        "added-on-board": "{{{firstname}}} {{{lastname}}} vient de vous ajouter comme {{{grant}}} sur un tableau.",
+        "connect-as": "Connectez-vous avec votre adresse {{{email}}} pour découvrir votre accès.",
+        "link-world": "Aller sur Visual World",
+        "link-board": "Aller sur le tableau {{{boardName}}} du monde {{{worldName}}}"
+      },
+      "guest": {
+        "title": "Félicitations !",
+        "body": "{{{firstname}}} {{{lastname}}} vous invite sur le tableau {{{boardName}}}.",
+        "link": "J’arrive !",
+        "expire": "Ce lien restera actif pendant {{{expire}}} Jour(s). "
+      },
+      "owner": {
+        "title": "Félicitations !",
+        "body": "Vous êtes désormais propriétaire d’un monde.​",
+        "link": "Allez sur votre monde​"
+      }
+    }
+  },
+  "world": {
+    "name": "sans titre"
+  }
+}

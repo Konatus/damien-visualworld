@@ -1,0 +1,92 @@
+{
+  "name": "visual-world-api",
+  "description": "A tool designed for visual management",
+  "version": "1.0.0",
+  "author": "Visual World SAS <contact@visual.world>",
+  "contributors": [
+    "David Cumont <david@visual.world>",
+    "Jean de Quatrebarbes <jean@visual.world>",
+    "Anaïs Tan <anais@visual.world>",
+    "Jonas Hamard",
+    "Amirouche Ourrad <amirouche@visual.world>"
+  ],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quatrebarbes/visual-world"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node src/index.js",
+    "lint": "npx eslint src/**/*.js --fix",
+    "prebuild": "copyfiles src/locales/* build/ && copyfiles src/emails/* build/ && copyfiles src/emails/assets/* build/ && copyfiles src/emails/assets/css/* build/ && copyfiles src/emails/assets/img/* build/ && copyfiles src/emails/templates/* build/ && copyfiles src/emails/templates/layout/* build/ && babel -d build/src --presets @babel/preset-env --plugins=module-resolver,babel-plugin-transform-import-meta src",
+    "build": "node_modules/.bin/pkg ./package.json --targets alpine --compress Brotli --output build/visual-world-api"
+  },
+  "bin": "build/src/index.js",
+  "pkg": {
+    "scripts": [
+      "./build/src/controllers/*.js",
+      "./build/src/listeners-socket-io/*.js",
+      "./build/src/listeners-express/*.js",
+      "./build/src/emails/index.js",
+      "./build/src/service/*.js",
+      "./build/src/utils/*.js",
+      "./build/src/index.js",
+      "./build/src/info.json"
+    ],
+    "assets": [
+      "./build/src/emails/assets/**/*",
+      "./build/src/emails/templates/**/*",
+      "./build/src/locales/*.json"
+    ]
+  },
+  "type": "module",
+  "dependencies": {
+    "@socket.io/mongo-adapter": "^0.1.0",
+    "ajv": "^8.3.0",
+    "axios": "^0.21.4",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.10",
+    "cors": "^2.8.5",
+    "email-templates": "^8.0.8",
+    "exceljs": "^4.4.0",
+    "express": "^4.17.1",
+    "generate-password": "^1.6.0",
+    "i18n": "^0.13.3",
+    "jimp": "^0.16.1",
+    "lodash.countby": "^4.6.0",
+    "lodash.flatten": "^4.4.0",
+    "lodash.frompairs": "^4.0.1",
+    "lodash.groupby": "^4.6.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.omit": "^4.5.0",
+    "log4js": "^6.7.0",
+    "mongodb": "^3.3.3",
+    "multer": "^1.4.2",
+    "node-fetch": "^2.6.7",
+    "nodemailer": "^6.7.0",
+    "nodemailer-plugin-inline-base64": "^2.1.1",
+    "qs": "^6.10.1",
+    "socket.io": "^4.5.3",
+    "stripe": "^8.186.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-import-meta": "^2.1.1",
+    "copyfiles": "^2.4.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "lint-staged": "^11.1.2",
+    "pkg": "^5.7.0",
+    "prettier": "^2.4.1"
+  }
+}

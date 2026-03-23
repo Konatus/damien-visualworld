@@ -1,0 +1,277 @@
+/* Global var */
+
+@font-face {
+    font-family: 'Raleway';
+    src: local('Raleway'), 
+    url('../assets/theme/fonts/Raleway/Raleway-Regular.ttf')  format('truetype');
+    font-weight: normal;
+}
+
+:root {
+
+    --style-color-main: #171E36;
+    --style-color-grey: #AEB1BB;
+    --style-color-lightblue: #3CA9DE;
+    --style-color-lightgrey: #d7dbdf;
+    --style-color-white: #FFF;
+    --style-color-selection: #414142;
+    --style-font-family: "Raleway",sans-serif;
+    --style-border-radius: 4px;
+
+    --color-success-light: #FFf9EB;
+    --color-success: #67C23A;
+    --color-warning-light: #FDF6EC;
+    --color-warning: #E6A23C;
+    --color-trash: red;
+
+    --color-main-font: #000; /* #3A3F51 */
+    --color-border-board: #D1D3D7;
+    --color-drag-select : #AEB1BB33;
+    --color-error-input: #ED6181;
+
+    --color-drag: var( --style-color-main );
+    --color-link: #3F48E5;
+    --color-select: #2196F3;
+    --color-drag-alpha: #171E3655;
+    --color-link-alpha: #3F48E577;
+    --color-drag-light: #F1F1F41F;
+    --color-link-light: #4241EE1F;
+
+    --selection-margin: 10px;
+
+    /* Dont forget to edit app.js also */
+    --color-icon-so: #0099CF;
+    --color-icon-su: #009C8F;
+    --color-icon-bm: #E53F7A;
+    --color-icon-cm: #E3AD2D;
+    --color-icon-wm: #F05C45;
+    --color-icon-owner: #F05C45;
+    --color-icon-root: purple;
+
+    /* See: https://codepen.io/sosuke/pen/Pjoqqp */
+    --style-filter-lightblue: invert(65%) sepia(78%) saturate(2306%) hue-rotate(169deg) brightness(95%) contrast(83%);
+    --style-filter-deactivated: invert(84%) sepia(5%) saturate(307%) hue-rotate(186deg) brightness(93%) contrast(85%) grayscale();
+    --style-filter-main: contrast(0) brightness(0) invert(9%) sepia(17%) saturate(3353%) hue-rotate(195deg) brightness(89%) contrast(91%);
+
+    --app-padding: 10px;
+
+    --layer-background: var( --style-color-white );
+
+    --form-background:  var( --style-color-white );
+    --input-background: var( --style-color-white );
+    --input-bordercolor: var( --style-color-grey );
+    --button-background: #EEEEEE;
+
+    --locked-mode-transparent: 0.25;
+
+    --overlay-z-index:  2147485000;
+    --dock-z-index:     2147484000;
+    --modal-z-index:    2147483000;
+    --max-z-index:      2147482000;
+    --level1-z-index:   2147481000;
+    --nav-top-z-index:  900;
+
+    --nav-left-large-width: 300px;
+
+    --nav-left-short-width: 60px;
+    --nav-top-height: 60px;
+    --nav-bottom-height: 60px;
+
+    --dock-width: 152px;
+
+    --link-data-inline-border: #DEDEE2;
+    --link-title-color: var( --style-color-grey );
+
+    --library-access-height: 40px;
+
+    --shadow-inset-error: 0px 0px 2px 1px var( --color-error-input ) inset;
+    --shadow-inset-hover: 0px 0px 2px 1px var( --style-color-grey ) inset;
+    --shadow-inset-focus: 0px 0px 2px 1px var( --style-color-lightblue ) inset;
+
+    --object-view-padding: 4px;
+    --object-linked-width: 230px;
+    --object-linked-height: 200px;
+    --object-linked-bottom-height: 50px;
+}
+
+::-webkit-scrollbar{
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F1F1F1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(214, 214, 214);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #A6A6A6;
+}
+
+*{
+    scrollbar-width: thin;
+}
+
+body{
+    font-family: var( --style-font-family );
+    color: var(--color-main-font);
+    font-variant-numeric: lining-nums;
+    overflow-x: hidden;
+}
+
+body > div.component-icon.sortable-drag{
+    pointer-events: auto !important;
+}
+
+body > div.component-icon.sortable-drag .component{
+    border-color:var( --style-color-grey );
+    box-shadow: inset 0 0 10em #AEB1BB30, 0 0 1em #AEB1BB
+}
+
+input,
+textarea{
+    font-variant-numeric: lining-nums;
+}
+
+a{
+    color: inherit;
+}
+a:hover{
+    color: var( --style-color-selection )
+}
+
+.el-link {
+    font-size: inherit !important;
+}
+
+img{
+    user-select: none;
+    
+    /* Prevent dragging of ghost image */
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
+
+button{
+    background: none;
+    border: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+button:disabled,
+input:disabled{
+    pointer-events: none; /* disable also touch events */
+}
+
+button:focus{
+    outline: none;
+}
+
+:focus {
+    outline: none;
+}
+
+nav>*{
+    user-select: none;
+    pointer-events: all;
+    box-sizing: border-box;
+    padding: 8px;
+    margin: 4px;
+    border-radius: var(--style-border-radius);
+    box-shadow: 0 1px 2px 0 #DEDEE2;
+    background: var(--style-color-white);
+}
+
+div.toolbar-position,
+div.toolbar-align{
+    min-width: inherit;
+    padding: 6px;
+}
+
+.el-dropdown-menu__item:not(.is-disabled):hover{
+    background-color: initial !important;
+}
+
+/* Textarea CSS used on export pdf & png  */
+#panzoom-scene .el-textarea{
+    display: none;
+}
+
+#app #panzoom-scene .el-textarea{
+    display: block;
+}
+
+.fitty-sandbox{
+    white-space: pre-wrap;
+    padding: 4px;
+    font-size: inherit;
+    color: inherit;
+}
+
+#app span.fitty-sandbox{
+    display: none;
+}
+
+body > #panzoom-scene span.fitty-sandbox{
+    display: block;
+}
+
+.component > *{
+    border-radius: inherit;
+}
+/* app img shouldn't be dragged */
+img[src^="/dist/"]{
+    -webkit-user-drag: none;
+}
+
+/* user-invitation hide selection now time */
+.guest-until .el-picker-panel__link-btn.el-button--text{
+    display: none;
+}
+
+#pattern-board-aside button {
+    width: 38px;
+}
+
+/* SVG display inside components */
+.component svg *{
+    vector-effect: non-scaling-stroke;
+}
+
+/* Background & animations not-found page */
+.background-dark {
+    position: absolute;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    background: #171E36 !important;
+}
+.background-image{
+    opacity: 0.5;
+    position: absolute;
+    top:0; left:0;
+    width: 100vw;
+    height: calc( 1024/1440 * 100vw );
+    z-index: 0;
+    background:
+        url("../assets/vw-background.svg"),
+        url("../assets/vw-background.svg"),
+        url("../assets/vw-background.svg"),
+        url("../assets/vw-background.svg"),
+        url("../assets/vw-background.svg") ;
+    background-size: 1.5625%, 6.25%, 25%, 100%, 200%;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-position: center, center, center, center, center;
+    animation: 7s cubic-bezier(.55,.28,.91,.94) 0s infinite running scale;
+}
+@keyframes scale {
+    from { transform: scale( 0.75 ) }
+    to   { transform: scale( 3 ) }
+}
+

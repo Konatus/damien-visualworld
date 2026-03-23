@@ -1,0 +1,6 @@
+--base 6.4.3
+--run jour
+--weightLateness 0.5
+--weightInactivity 0.5
+--rule all
+

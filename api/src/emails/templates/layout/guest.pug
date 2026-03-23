@@ -1,0 +1,7 @@
+extends ../index.pug
+block content
+    h2=$t.__("email.template.guest.title")
+    - var { lastname, firstname } = identity
+    p=$t.__("email.template.guest.body", { lastname, firstname, boardName })
+    a(class='btn-link' href=link)=$t.__("email.template.guest.link")
+    p=$t.__("email.template.guest.expire", { expire })

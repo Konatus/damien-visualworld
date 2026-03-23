@@ -1,0 +1,10 @@
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+  <title>Board</title>
+  <desc>Visual World</desc>
+  <g fill="none">
+    <path d="M0 0h24v24H0z" />
+    <path
+      d="M20 2a2 2 0 012 2v11a2 2 0 01-2 2h-4.89l.88 4.402.01.09a.5.5 0 01-.99.106L14.089 17H9.91l-.92 4.598a.5.5 0 01-.99-.106l.01-.09L8.889 17H4a2 2 0 01-2-2V4a2 2 0 012-2h16zm0 1H4a1 1 0 00-.993.883L3 4v11a1 1 0 00.883.993L4 16h16a1 1 0 00.993-.883L21 15V4a1 1 0 00-.883-.993L20 3z"
+      fill="#171E36" />
+  </g>
+</svg>

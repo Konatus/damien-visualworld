@@ -1,0 +1,27 @@
+extends ../index.pug
+block content
+    h2=$t.__("email.template.limit-reached.title")
+    p=$t.__("email.template.limit-reached.body", { worldName })
+    a(class='btn-link' href=`mailto:${link}`)=$t.__("email.template.limit-reached.link")
+    p=$t.__("email.template.limit-reached.label")
+    ul.limit-reached
+        each val in Object.keys(limitReached) || []
+            -var used=limitReached[val]['used']
+            -var useMax=limitReached[val]['useMax']
+            -var alert = ""
+            - if(val === 'guest' && Object.keys(used).filter(item => used[item] >= useMax).length)
+                - alert = "error"
+            - else if(used >= useMax)
+                - alert = "error"
+            - else if (val === 'db' && (useMax - used) <= 0.1 /* 100 Mo */)
+                - alert = "warning"
+            - else if (val === 'jira-project' && (useMax - used) <= 2)
+                - alert = "warning"
+            - else if ( val === 'user' && useMax - used <= 5)
+                - alert = "warning"
+            li(class=alert)
+                span=$t.__(`email.template.limit-reached.${val}`)
+                - if (val == 'guest')
+                    span=`: ${useMax} / ${useMax} ( ${Object.keys(used).filter(item => used[item] >= useMax)} )`
+                - else 
+                    span=`: ${used} / ${useMax}`

@@ -1,0 +1,22 @@
+diff --git a/node_modules/element-ui/lib/element-ui.common.js b/node_modules/element-ui/lib/element-ui.common.js
+index 25d11ab..41f4464 100644
+--- a/node_modules/element-ui/lib/element-ui.common.js
++++ b/node_modules/element-ui/lib/element-ui.common.js
+@@ -5286,6 +5286,9 @@ input_numbervue_type_template_id_42f8cf66_render._withStripped = true
+       immediate: true,
+       handler: function handler(value) {
+         var newVal = value === undefined ? value : Number(value);
++        if (value === null) {
++          newVal = value
++        } else {
+         if (newVal !== undefined) {
+           if (isNaN(newVal)) {
+             return;
+@@ -5303,6 +5306,7 @@ input_numbervue_type_template_id_42f8cf66_render._withStripped = true
+         }
+         if (newVal >= this.max) newVal = this.max;
+         if (newVal <= this.min) newVal = this.min;
++        }
+         this.currentValue = newVal;
+         this.userInput = null;
+         this.$emit('input', newVal);

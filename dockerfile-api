@@ -1,0 +1,24 @@
+FROM node:14-alpine AS node-builder
+
+WORKDIR /usr/src
+COPY ./api ./api
+
+RUN apk add --no-cache git
+COPY ./.git .
+RUN echo "export default { \"commit\": \""$(git rev-parse HEAD)"\", \"branch\": \""$(git symbolic-ref HEAD)"\" }" > ./api/src/info.js
+
+WORKDIR /usr/src/api
+RUN npm install --quiet
+RUN npm run build
+
+FROM alpine
+COPY --from=node-builder /usr/src/api/build/visual-world-api /opt/
+RUN mkdir /logs/
+RUN chmod 500 /opt/visual-world-api
+RUN chmod 700 /logs/
+RUN chown -R 1001:1001 /opt/
+RUN chown -R 1001:1001 /logs/
+USER 1001
+
+EXPOSE 8080
+ENTRYPOINT ["/opt/visual-world-api"]

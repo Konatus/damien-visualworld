@@ -1,0 +1,533 @@
+/**************************/
+/********** APP ***********/
+/**************************/
+
+.bold{
+    font-weight: 700;
+}
+
+.line{
+    background: #DEDEE2;
+    width: 100%;
+    height: 2px;
+    display: block;
+}
+
+#tab-component-edit-definition:hover,
+#tab-component-edit-properties:hover,
+#tab-component-edit-computed:hover,
+#tab-component-edit-template:hover,
+#tab-component:hover,
+#tab-link:hover,
+#tab-template:hover,
+.object-data-link-select-footer.vw-link-color:hover .el-input__inner,
+.object-data-link-select-footer.vw-link-color:hover .el-input__suffix .el-input__icon,
+#object-component-change .el-select .el-input:hover .el-input__inner,
+#object-component-change .el-select .el-input:hover .el-select__caret,
+#pattern-config .el-tabs__item:hover,
+#pattern-config .el-switch:hover .el-switch__label,
+#pattern-config .el-checkbox-button__inner:hover,
+#pattern-config .el-button:hover,
+#pattern-config .el-input-number__decrease:hover,
+#pattern-config .el-input-number__increase:hover,
+#modal-world-data .el-input-number__decrease:hover,
+#modal-world-data .el-input-number__increase:hover,
+#btn-zoom-out.vw-link-color:hover > i,
+#btn-zoom-in.vw-link-color:hover > i,
+.el-input-number__decrease:hover > i,
+.el-input-number__increase:hover > i,
+.drawing-dock-width:hover.vw-triangle::before,
+.object-toolbar-align:hover .vw-triangle::before,
+.el-color-dropdown .el-button:hover,
+span[role="button"]:hover,
+.modal-btn-close:hover,
+.el-tabs__item:hover,
+.vw-link-color:hover,
+.vw-link-color:hover > label,
+.vw-link-color:hover > a,
+.vw-link-color .el-step__title:hover,
+.vw-link-color .el-select-dropdown__item:hover,
+.vw-link-color .el-submenu__title:hover,
+.vw-link-color .el-submenu__title:hover > span,
+.vw-link-color .el-submenu__title:hover > div span,
+.vw-link-color .el-submenu__title:hover > i,
+.vw-link-color .el-menu-item:hover,
+.vw-link-color .el-menu-item:hover > span,
+.vw-link-color .el-tabs__item:hover,
+.vw-link-color > button:hover i,
+.vw-link-color > button:hover span,
+.vw-link-color span:hover,
+.vw-link-color:hover .world-list-data span,
+.vw-link-color:hover > div .label,
+.vw-link-color:hover > .el-tabs__item
+.vw-link-color:hover > i,
+.vw-link-color:hover > h3,
+.vw-link-color:hover > span,
+.vw-link-color:hover.vw-triangle::before{
+    color: var( --style-color-lightblue ) !important;
+    cursor: pointer;
+}
+
+.board-toolbar-button:hover > img,
+.board-toolbar-button:hover > i,
+.ql-toolbar button:hover,
+.ql-toolbar .ql-picker-label:hover,
+#tab-component:hover img,
+#tab-link:hover img,
+#tab-template:hover img,
+.vw-link-color .el-submenu .el-submenu__title:hover > img,
+.vw-link-color .el-menu-item:hover > img,
+.vw-link-color:hover > img,
+.vw-link-filter:hover > img,
+.vw-link-filter:hover > span img,
+.vw-link-filter:hover div img{
+    filter: var( --style-filter-lightblue ) !important;
+}
+
+/* flex */
+.vw-flex-row,
+.vw-flex-col {
+    display: flex;
+    justify-content: space-between;
+}
+.vw-flex-row {
+    flex-direction: row;
+}
+.vw-flex-col {
+    flex-direction: column;
+}
+.vw-flex-row > *,
+.vw-flex-col > *{
+    flex-shrink: 0;
+    z-index: 1;
+    position: relative;
+}
+.vw-flex-payload{
+    flex-shrink: 1;
+    flex-grow: 1;
+    z-index: 0;
+    justify-content: start;
+}
+.vw-flex-center{
+    align-content: center;
+    align-items: center;
+}
+
+.vw-absolute-0{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.vw-center{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+/* design */
+.vw-card {
+    margin: 6px;
+    border-radius: var(--style-border-radius);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 2px 8px rgba(0, 0, 0, 0.1);
+    background: var(--style-color-white);
+}
+.vw-triangle{
+    position: relative;
+}
+.vw-triangle:before{
+    content: '◢';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 80%;
+    color: var( --style-color-main );
+    z-index: 10;
+}
+
+/**************************/
+/********* MODAL **********/
+/**************************/
+
+.modal {
+    border-radius: var(--style-border-radius);
+}
+
+.modal-data{
+    padding: 25px 15px 25px 25px;
+}
+
+.modal-header{
+    margin-bottom: 20px;
+}
+
+.modal-title{
+    color: #AEB1BB;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.modal-btn-close{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.el-form-item__label{
+    color: #3A3F51;
+    font-size: 14px !important;
+    font-weight: 700;
+    padding-bottom: 0px !important;
+}
+
+.modal-data .buttons{
+    margin-top: 40px;
+}
+
+/**************************/
+/******* USER COLOR *******/
+/**************************/
+/* Root */
+.user-icon-root {
+    background: var( --color-icon-root ) !important;
+}
+/* Owner */
+.user-icon-ow {
+    background: var( --color-icon-owner ) !important;
+}
+/* World Manager */
+.user-icon-wm {
+    background: var( --color-icon-wm ) !important;
+}
+
+/* Component Manager */
+.user-icon-cm {
+    background: var( --color-icon-cm ) !important;
+}
+
+/* Board Manager */
+.user-icon-bm {
+    background: var( --color-icon-bm ) !important;
+}
+
+/* Simple User */
+.user-icon-su {
+    background: var( --color-icon-su ) !important;
+}
+
+/* Simple Observer */
+.user-icon-so {
+    background: var( --color-icon-so ) !important;
+}
+
+/* None*/
+.user-icon-none {
+    background: var( --style-color-main ) !important;
+}
+
+.user-icon-root,
+.user-icon-ow  ,
+.user-icon-wm  ,
+.user-icon-cm  ,
+.user-icon-bm  ,
+.user-icon-su  ,
+.user-icon-so  ,
+.user-icon-none{
+    color: white !important;
+}
+
+/**************************/
+/******* ELEMENT UI *******/
+/**************************/
+.el-divider{
+    background-color: var(--style-color-lightgrey) !important;
+}
+.el-divider+.el-divider{
+    display: none;
+}
+.el-divider--vertical {
+    height: auto !important;
+}
+
+.el-divider--horizontal{
+    margin: 8px 0px !important;
+}
+
+.el-menu--horizontal>.el-menu-item.is-active {
+    border-color: transparent !important;
+}
+
+.el-menu--horizontal>.el-submenu .el-submenu__title{
+    --size: 46px;
+    max-height: var(--size) !important;
+}
+
+/**************************/
+/******* FIELD STYLE ******/
+/**************************/
+
+.el-form-item:after, .el-form-item:before{
+    display: none !important;
+}
+
+.component .el-input__inner,
+.component .el-input--suffix .el-input__inner,
+.component .el-input-number.is-without-controls .el-input__inner{
+    padding: 0 0.5em 0 0;
+    text-indent: 0.5em;
+}
+.component .el-textarea__inner{
+    padding: 0 2px;
+    resize: none;
+}
+.component .el-input__prefix,
+.component .el-input__prefix .el-input__icon{
+    transition: none !important;
+    left: 0 !important;
+    width: 2em !important;
+}
+.component .el-input__suffix,
+.component .el-input__suffix .el-input__icon{
+    transition: none !important;
+    right: 0em !important;
+    width: 1em !important;
+}
+
+.component .el-form,
+.component .el-form-item,
+.component .el-form-item__content,
+.component .el-input,
+.component .el-input-number,
+.component .el-input-number .el-input__inner,
+.component .el-input__inner,
+.component .el-textarea__inner,
+.component .el-textarea,
+.component .el-radio,
+.component .el-radio__label,
+.component .el-checkbox,
+.component .el-checkbox__label,
+.component .el-rate,
+.component .el-rate__item,
+.component .el-rate__icon,
+.component .el-color-picker,
+.component .el-color-picker__trigger,
+.component .el-select{
+    font-size: inherit;
+    color: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+    text-decoration: inherit;
+    font-style: inherit;
+    background: initial;
+    height: 100%;
+}
+.el-date-editor.el-input, 
+.el-date-editor.el-input__inner,
+.component-grid .el-form,
+.component-grid .el-form-item,
+.component-grid .el-form-item__content,
+.component-grid .el-input,
+.component-grid .el-input__inner,
+.component-grid .el-input-number,
+.component-grid .el-textarea,
+.component-grid .el-radio,
+.component-grid .el-radio__label,
+.component-grid .el-checkbox,
+.component-grid .el-checkbox__label,
+.component-grid .el-color-picker,
+.component-grid .el-color-picker__trigger,
+.component-grid .el-select{
+    height: 100% !important;
+    width:  100% !important;
+}
+.component-html .el-form,
+.component-html .el-form-item,
+.component-html .el-form-item__content,
+.component-html .el-input,
+.component-html .el-input-number,
+.component-html .el-radio,
+.component-html .el-radio__label,
+.component-html .el-checkbox,
+.component-html .el-checkbox__label,
+.component-html .el-color-picker,
+.component-html .el-color-picker__trigger,
+.component-html .el-select{
+    width:  inherit;
+}
+
+.component-grid .field-preview{
+    text-decoration: inherit;
+}
+
+.component-grid .el-form-item__content{
+    position: relative;
+    overflow: hidden;
+}
+
+.component .el-radio-group,
+.component .el-radio-button,
+.component .el-radio-button__inner,
+.component .el-checkbox-group,
+.component .el-checkbox-button,
+.component .el-checkbox-button__inner,
+.component .el-select{
+    font-size: inherit !important;
+    color: inherit;
+    text-decoration: inherit;
+    font-weight: inherit;
+    transition: none;
+}
+
+.component-field-builder .el-form,
+.component-field-builder .el-form-item,
+.component-field-builder .el-form-item__content,
+.component-field-builder .el-input,
+.component-field-builder .el-input-number,
+.component-field-builder .el-input__inner,
+.component-field-builder .el-textarea__inner,
+.component-field-builder .el-textarea,
+.component-field-builder .el-radio,
+.component-field-builder .el-radio__label,
+.component-field-builder .el-checkbox,
+.component-field-builder .el-checkbox__label,
+.component-field-builder .el-color-picker,
+.component-field-builder .el-color-picker__trigger,
+.component-field-builder .el-select,
+.component-field-builder .el-switch,
+.component-field-builder > div {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+/**** Checkbox + radio ****/
+.component .el-radio-button__inner{
+    border-radius: 10px !important;
+}
+
+.component .el-checkbox-button__inner{
+    border-radius: 2px !important;
+}
+
+.component .el-radio-button__inner,
+.component .el-checkbox-button__inner{
+    margin: 2px;
+    border: 1px solid #AEB1BB;
+}
+
+.component .is-active .el-radio-button__inner,
+.component .is-checked .el-checkbox-button__inner{
+    color: #FFF;
+}
+
+.component .el-radio{
+    margin-right: 0px;
+}
+
+/******** Textarea & input *******/
+.component .el-textarea{
+    height: inherit !important;
+    width:  100% !important;
+}
+.component .el-textarea__inner,
+.component .el-input__inner{
+    height: 100% !important;
+    width:  100% !important;
+}
+
+/******** Richtext *******/
+.field-view[ data-field-type="editor" ] > span{
+    white-space: pre-wrap;
+}
+
+/******** Select *******/
+.component .el-select__caret{
+    line-height: 1em !important;
+    font-size: inherit !important;
+}
+.component .el-tag{
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    background-color: inherit !important;
+    color: inherit !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    height: 100%;
+    margin: 0.1em !important;
+}
+.component .el-tag.el-tag--info .el-tag__close{
+    background-color: rgba(100, 100, 100, 0.4) !important;
+    color: inherit !important;
+}
+
+/******** Switch *******/
+.component .el-switch{
+    width: 100% !important;
+    min-height: 20px;
+}
+
+.component .el-switch__core{
+    width: 100% !important;
+    height: 50%;
+    min-height: 20px;
+    border-radius: 2em;
+}
+
+.component .el-switch__core::after{
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
+/******** Date + Time *******/
+.component .el-icon-date::before,
+.component .el-icon-time::before{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+}
+.component .el-switch__core::after,
+.component .el-icon-circle-close::before{
+    position: absolute;
+    transform: translate(0, -50%);
+    right: 0;
+    top: 50%;
+}
+
+.component .el-date-editor > input,
+.component .el-time-editor > input{
+    padding: 0 1.5em !important;
+}
+
+/******** Rate *******/
+.component-grid .el-rate{
+    height: 1em !important;
+}
+.component .el-rate__icon{
+    margin-right: 0px;
+    transition: none;
+}
+
+.component .el-rate__item{
+    width: auto !important;
+}
+
+.component .el-rate__decimal{
+    top: 5%;
+}
+
+/******** Img *******/
+.component img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.component a img{
+    object-fit: contain; 
+}

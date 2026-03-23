@@ -1,0 +1,7 @@
+<svg width="48" height="20" xmlns="http://www.w3.org/2000/svg">
+  <title>Gentle curve link</title>
+  <desc>Visual World</desc>
+  <path
+    d="M1 3C5.93.95 10.892.653 15.887 2.112c7.493 2.188 7.966 12.05 16.111 15.903 5.062 2.395 9.965 2.138 14.708-.771"
+    stroke="#171E36" stroke-width="2" fill="none" />
+</svg>

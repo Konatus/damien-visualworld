@@ -1,0 +1,178 @@
+/***********************
+ *** DESIGN OF MODAL ***
+ ***********************/
+
+.modal{
+    z-index: var(--modal-z-index) !important;
+    background: var( --form-background );
+}
+
+.vue-dialog .dialog-content{
+    text-align: center;
+    font-size: 0.8em ;
+    font-size: 0.7em !important;
+    padding: 0px !important;
+}
+
+.v--modal-overlay{
+    background:rgba(23,30,54,0.5) !important;
+}
+
+.v--modal-overlay[data-modal=dialog]{
+    z-index: var( --overlay-z-index ) !important
+
+}
+
+.v--modal{
+    border-radius: var( --style-border-radius ) !important;
+}
+
+.modal-component-edit{
+    background: var( --form-background );
+}
+
+.modal-link-model{
+    background: var( --form-background );
+    border-radius: var( --style-border-radius );
+}
+
+.modal-component-library{
+    background: var( --form-background );
+    border-radius: var( --style-border-radius );
+    z-index: var( --level1-z-index );
+}
+
+.modal-board-options{
+    min-height: 200px;
+}
+
+.modal-component-edit p,
+.v--modal-box .dialog-c-title{
+    font-size: initial;
+    font-weight: bold;
+    text-align: center;
+    color: var( --style-color-main );
+    padding: 0 20px;
+}
+
+.v--modal-overlay .v--modal-box{
+    overflow: visible;
+    padding-bottom: 1px;
+}
+
+.vue-dialog{
+    padding: 25px 15px 25px 25px !important;
+}
+
+.vue-dialog .dialog-c-title{
+    color: #AEB1BB;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: left;
+    padding: 0px;
+    margin-bottom: 10px;
+}
+
+.vue-dialog .dialog-c-text{
+    font-size: initial;
+    color: initial;
+    text-align: left;
+}
+
+.vue-dialog .vue-dialog-buttons{
+    justify-content: center;
+    border-top: none !important;
+    margin-top: 30px;
+}
+
+.vue-dialog .vue-dialog-buttons .vue-dialog-button:first-child{
+    margin-right: 13px !important;
+    color: #FFF !important;
+    background-color: #3CA9DE !important;
+    border-color: #3CA9DE !important;
+}
+
+.vue-dialog .vue-dialog-buttons .vue-dialog-button:first-child:hover{
+    margin-right: 13px !important;
+    background: #63bae5 !important;
+    border-color: #63bae5 !important;
+    color: #FFF !important;
+}
+
+.vue-dialog .vue-dialog-buttons .vue-dialog-button:last-child:hover{
+    color: var( --style-color-lightblue ) !important;
+}
+
+.vue-dialog-button{
+    flex: 0 1 auto !important;
+    font-size: 12px !important;
+    border-radius: var(--style-border-radius);
+    padding: 9px 15px !important;
+    display: inline-block;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    cursor: pointer;
+    border: 1px solid #AEB1BB !important;
+    text-align: center;
+    box-sizing: border-box !important;
+    outline: 0;
+    margin: 0;
+    font-weight: 500;
+    height: auto !important;
+    width: 80px !important;
+}
+
+
+/**********************
+ *** DESIGN OF FORM ***
+ **********************/
+
+.making-form{
+    height: 70vh !important
+}
+
+.fm-style .icon{
+    width: inherit;
+    height: inherit;
+}
+
+.fm-style .widget-config-container .config-tab{
+    font-size: 11px !important;
+    width: 140px !important;
+ }
+
+.fm-style .widget-form-container .widget-form-list .widget-view.active,
+.fm-style .widget-form-container .widget-form-list .widget-view:hover.active {
+    outline: 2px solid var(--style-color-lightblue) !important;
+    border: 1px solid var(--style-color-lightblue) !important;
+}
+
+.fm-style .widget-form-container .widget-form-list .widget-view:hover{
+    outline: 1px solid var(--style-color-lightblue) !important;
+}
+
+.fm-style .widget-form-container .widget-form-list .widget-view .widget-view-drag,
+.fm-style .widget-form-container .widget-form-list .widget-view .widget-view-action{
+    background: var(--style-color-lightblue) !important;
+}
+
+.fm-style .components-list .form-edit-widget-label:hover{
+    color: var(--style-color-lightblue) !important;
+    border: 1px dashed var(--style-color-lightblue) !important;
+}
+
+.fm-style .widget-config-container .config-tab.active{
+    border-bottom: 2px solid var(--style-color-lightblue) !important;
+}
+
+.fm-style .custom-control-label::after,
+.fm-style .custom-control-label::before{
+    top: 0px !important;
+}
+
+.fm-style .form-config-container .el-radio-group{
+    width: 300px !important;
+}
+.fm-style .form-config-container .el-radio-button__inner{
+    padding: 12px 17px !important;
+}

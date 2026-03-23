@@ -1,0 +1,3 @@
+- fichier solution contient 
+- newteamId
+- data of table attributOpt

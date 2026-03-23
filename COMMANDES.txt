@@ -1,0 +1,24 @@
+🚀 COMMANDES SMART MOVER V4 & ITERATION CALCULATOR
+
+═══════════════════════════════════════════════════════════
+
+📦 SMART MOVER V4 - Organisation des work items par projet
+
+# Détection seulement (sans modifier)
+node test-smart-mover-v4-project-rows.js -d
+
+# Organisation complète
+node test-smart-mover-v4-project-rows.js
+
+# Comparaison des 4 versions
+node test-smart-mover-v4-project-rows.js -c
+
+═══════════════════════════════════════════════════════════
+
+📅 ITERATION CALCULATOR - Calcul des itérations
+
+# Lancer le calculateur
+node test-iteration-calculator.js
+
+═══════════════════════════════════════════════════════════
+

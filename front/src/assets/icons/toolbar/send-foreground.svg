@@ -1,0 +1,14 @@
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+  <title>Foreground sending</title>
+  <desc>Visual World</desc>
+  <g fill="none" stroke="#171E36">
+    <path d="M20 6.5h-2.978M6.5 20v-2.918" stroke-dasharray="2 2" />
+    <path
+      d="M8.5 17.5H1.5q-.098 0-.195-.02-.096-.018-.187-.056-.091-.038-.173-.092-.082-.055-.151-.125-.07-.07-.125-.151-.054-.082-.092-.173-.038-.09-.057-.187Q.5 16.599.5 16.5V1.5q0-.098.02-.195.018-.096.056-.187.038-.091.092-.173Q.723.862.793.793q.07-.07.151-.125.082-.054.173-.092.09-.038.187-.057Q1.401.5 1.5.5h15q.098 0 .195.02.096.018.187.056.091.038.173.092.082.055.151.125.07.07.125.151.054.082.092.173.038.09.057.187.019.097.019.196v7" />
+  </g>
+  <path d="M14.002 9H9v5.003" fill="none" stroke="#171E36" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M15.502 15.503L9.499 9.5" fill="none" stroke="#171E36" stroke-linecap="round" />
+  <path d="M23.5 9.5v12m-3.5 2H8.5" fill="none" stroke="#171E36" stroke-dasharray="2 2" />
+  <path d="M7.5 23.46c-.552 0-1-.43-1-.96m16.98-.02c0 .552-.43 1-.96 1M22.5 6.5c.552 0 1 .43 1 .96" fill="none"
+    stroke="#171E36" stroke-linecap="round" />
+</svg>

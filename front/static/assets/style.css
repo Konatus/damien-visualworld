@@ -1,0 +1,81 @@
+
+html, body, #app{
+margin: 0;
+padding: 0;
+width: 100%;
+height: 100%;
+text-align: center;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+body{
+    background: #171e36;
+    overflow: hidden;
+}
+
+#ie-message{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#background-image{
+    opacity: 0.5;
+    position: absolute;
+    top:0; left:0;
+    width: 100vw;
+    height: calc( 1024/1440 * 100vw );
+    z-index: 0;
+    background:url("./vw-background.svg")
+}
+
+header{
+    z-index: 1;
+    position: fixed;
+}
+
+header img{
+    margin: 20px;
+    height: 40px;
+}
+
+main{
+    z-index: 1;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main h1{
+    font-size: 18rem;
+    margin: 0;
+}
+
+main h1 .first{
+    color: #6d7385;
+}
+
+main h1 .second{
+    color: #fff;
+}
+
+main h1 .third{
+    color: #e3a51a;
+}
+
+main div{
+    margin-top: 0;
+    color: #fff;
+    opacity: .6;
+    font-size: 2rem;
+}
+
+main p{
+    color: #fff;
+    font-size: 2rem;
+}
