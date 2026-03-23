@@ -63,7 +63,7 @@
 🚀 2. DÉMARRER L'APPLICATION AVEC PM2
 
    ```bash
-   cd /root/visualworld-main
+   cd /root/visualworld-main-main
    ./start-pm2.sh
    ```
    
@@ -77,7 +77,7 @@
 🧪 3. TESTER LE DÉPLOIEMENT AUTOMATIQUE
 
    ```bash
-   cd /root/visualworld-main
+   cd /root/visualworld-main-main
    echo "# Test CI/CD" >> README.md
    git add README.md
    git commit -m "test: vérification pipeline CI/CD"

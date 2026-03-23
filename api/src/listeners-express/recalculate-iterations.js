@@ -1,4 +1,4 @@
-// /root/visualworld/api/src/listeners-express/recalculate-iterations.js
+// /root/visualworld-main/api/src/listeners-express/recalculate-iterations.js
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -10,8 +10,8 @@ const require = createRequire(import.meta.url);
 
 const fs = require("fs");
 
-const OUT_V1_XLSX = "/root/visualworld/DataFile/OutputDataOptimizationV1.xlsx";
-const OPTIONS_JSON = "/root/visualworld/DataFile/konatus_options.json";
+const OUT_V1_XLSX = "/root/visualworld-main/DataFile/OutputDataOptimizationV1.xlsx";
+const OPTIONS_JSON = "/root/visualworld-main/DataFile/konatus_options.json";
 
 function readKonatusOptions() {
   const defaults = {
@@ -46,7 +46,7 @@ export default (express) => {
   express.post("/api/recalculate-iterations", async (_req, res) => {
     try {
       const opt = readKonatusOptions();
-      console.log("?? Options utilisées:", opt);
+      console.log("?? Options utilisï¿½es:", opt);
 
       const calculatorPath = path.join(__dirname, "../../../iteration-calculator.js");
 
@@ -66,7 +66,7 @@ export default (express) => {
       if (!fs.existsSync(OUT_V1_XLSX)) {
         return res.status(500).json({
           success: false,
-          error: `Le fichier attendu n'a pas été généré: ${OUT_V1_XLSX}`,
+          error: `Le fichier attendu n'a pas ï¿½tï¿½ gï¿½nï¿½rï¿½: ${OUT_V1_XLSX}`,
           optionsUsed: opt,
           details: results,
         });

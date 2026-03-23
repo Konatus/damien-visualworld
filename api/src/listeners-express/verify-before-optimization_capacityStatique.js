@@ -1,4 +1,4 @@
-// /root/visualworld/api/src/listeners-express/verify-before-optimization.js
+// /root/visualworld-main/api/src/listeners-express/verify-before-optimization.js
 // -*- coding: utf-8 -*-
 
 import fs from "fs";
@@ -22,21 +22,21 @@ import Excel from "exceljs";
  *   soit via les lignes "titre projet" (phase vide / non-work-item), comme dans ton Excel.
  */
 
-const INPUT_XLSX = "/root/visualworld/DataFile/InputDataOptimizationV1.xlsx";
+const INPUT_XLSX = "/root/visualworld-main/DataFile/InputDataOptimizationV1.xlsx";
 
 const WORK_ELEMENT_TXT =
-  "/root/visualworld/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/work_element_6.4.3.txt";
+  "/root/visualworld-main/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/work_element_6.4.3.txt";
 const ATTRIBUT_TXT =
-  "/root/visualworld/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/attribut_6.4.3.txt";
+  "/root/visualworld-main/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/attribut_6.4.3.txt";
 const TEAM_BACKLOG_TXT =
-  "/root/visualworld/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/team_backlog_6.4.3.txt";
+  "/root/visualworld-main/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/team_backlog_6.4.3.txt";
 const DEPENDS_TXT =
-  "/root/visualworld/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/depends_6.4.3.txt";
+  "/root/visualworld-main/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/depends_6.4.3.txt";
 const TEAM_RESOURCES_TXT =
-  "/root/visualworld/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/team_resources_6.4.3.txt";
+  "/root/visualworld-main/OptimizationCode/OptimizationAlgorithm/Input/Konatus_instances/team_resources_6.4.3.txt";
 
 // options �crites par /api/konatus-options
-const OPTIONS_PATH = "/root/visualworld/DataFile/konatus_options.json";
+const OPTIONS_PATH = "/root/visualworld-main/DataFile/konatus_options.json";
 
 const SHEET_OBJECTS = "Objets";
 const SHEET_LINKS = "Liens";

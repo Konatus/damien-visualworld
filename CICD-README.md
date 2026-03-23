@@ -88,7 +88,7 @@ PM2 est déjà installé sur votre serveur. Configuration :
 
 ```bash
 # Démarrer les applications
-cd /root/visualworld-main
+cd /root/visualworld-main-main
 pm2 start ecosystem.config.json
 
 # Sauvegarder la configuration
@@ -219,7 +219,7 @@ pm2 logs --err
 pm2 restart all
 
 # Ou sans PM2
-cd /root/visualworld-main
+cd /root/visualworld-main-main
 pkill -f "node.*visualworld"
 cd api && npm start &
 cd ../front && npm run serve &
@@ -229,14 +229,14 @@ cd ../front && npm run serve &
 
 ```bash
 # Donner les permissions sur les dossiers
-chown -R root:root /root/visualworld-main
-chmod -R 755 /root/visualworld-main
+chown -R root:root /root/visualworld-main-main
+chmod -R 755 /root/visualworld-main-main
 ```
 
 ## 📁 Structure des Backups
 
 ```
-/root/visualworld-backups/
+/root/visualworld-main-backups/
 ├── visualworld_20260323_143000.db
 ├── visualworld_20260323_153000.db
 └── ... (10 derniers backups conservés)

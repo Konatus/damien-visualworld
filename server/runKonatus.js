@@ -1,9 +1,9 @@
-// /root/visualworld/server/runKonatus.js
+// /root/visualworld-main/server/runKonatus.js
 const express = require("express");
 const cors = require("cors");
 const { exec } = require("child_process");
 
-// ?? on importe la fonction de prétraitement
+// ?? on importe la fonction de prï¿½traitement
 const runPretraitementInput = require("./preatretment_input");
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.get("/health", (req, res) => res.json({ ok: true }));
 
-// --------- NOUVELLE ROUTE : prétraitement ---------
+// --------- NOUVELLE ROUTE : prï¿½traitement ---------
 app.post("/api/preatretment-input", async (req, res) => {
   try {
     const output = await runPretraitementInput();
@@ -33,7 +33,7 @@ app.post("/api/preatretment-input", async (req, res) => {
 
 // --------- EXISTANT : lancement optimisation Python ---------
 app.post("/run-konatus", (req, res) => {
-  const cmd = "python3 /root/visualworld/OptimizationCode/ExternScript/main.py";
+  const cmd = "python3 /root/visualworld-main/OptimizationCode/ExternScript/main.py";
   console.log("[RUN]", cmd);
 
   exec(cmd, (error, stdout, stderr) => {

@@ -35,14 +35,14 @@ Tous les fichiers ont été corrigés pour être compatibles avec C++17. La comp
 ### Méthode recommandée : Makefile
 
 ```bash
-cd /root/visualworld/optimization_code_vw
+cd /root/visualworld-main/optimization_code_vw
 make
 ```
 
 ### Méthode manuelle
 
 ```bash
-cd /root/visualworld/optimization_code_vw
+cd /root/visualworld-main/optimization_code_vw
 mkdir -p obj Output log
 
 g++ -std=c++17 -Wall -Wextra -O2 -pthread -c AbstractGeneticAlgo.cpp -o obj/AbstractGeneticAlgo.o

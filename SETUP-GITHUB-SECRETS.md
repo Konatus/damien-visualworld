@@ -56,7 +56,7 @@ Une fois les secrets ajoutés, testez le déploiement :
 
 ```bash
 # Faire un petit changement
-cd /root/visualworld-main
+cd /root/visualworld-main-main
 echo "# Test CI/CD" >> README.md
 git add README.md
 git commit -m "test: vérification CI/CD"
@@ -79,14 +79,14 @@ pm2 save
 ## 4. Démarrer l'Application avec PM2
 
 ```bash
-cd /root/visualworld-main
+cd /root/visualworld-main-main
 ./start-pm2.sh
 ```
 
 Ou manuellement :
 
 ```bash
-cd /root/visualworld-main
+cd /root/visualworld-main-main
 pm2 start ecosystem.config.json
 pm2 save
 ```

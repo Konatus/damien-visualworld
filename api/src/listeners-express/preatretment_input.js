@@ -1,12 +1,12 @@
-// /root/visualworld/api/src/listeners-express/preatretment_input.js
+// /root/visualworld-main/api/src/listeners-express/preatretment_input.js
 // Route Express: POST /api/preatretment-input
 // Elle appelle le script Node du dossier /server
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
-// On importe la fonction Node (CommonJS) située dans /root/visualworld/server
-const runPretraitementInput = require("/root/visualworld/server/preatretment_input.js");
+// On importe la fonction Node (CommonJS) situï¿½e dan/root/visualworld-mainld/server
+const runPretraitementInput = require("/root/visualworld-main/server/preatretment_input.js");
 
 export default (express) => {
   express.post("/api/preatretment-input", async (req, res) => {

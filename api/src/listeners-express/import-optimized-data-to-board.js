@@ -1,4 +1,4 @@
-// /root/visualworld/api/src/listeners-express/import-optimized-data-to-board.js
+// /root/visualworld-main/api/src/listeners-express/import-optimized-data-to-board.js
 export default function importOptimizedDataToBoard(app) {
   app.post("/api/import-optimized-data-to-board", async (req, res) => {
     try {
@@ -11,7 +11,7 @@ export default function importOptimizedDataToBoard(app) {
       return res.json({
         success: true,
         summary: { rowsImported: 0, rowsUpdated: 0 },
-        info: "Endpoint créé. Import métier à implémenter.",
+        info: "Endpoint crï¿½ï¿½. Import mï¿½tier ï¿½ implï¿½menter.",
       });
     } catch (e) {
       return res.status(500).json({ success: false, error: e.message });

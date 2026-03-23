@@ -15,7 +15,7 @@ g++ --version
 ### Méthode 1 : Utiliser le Makefile (recommandé)
 
 ```bash
-cd /root/visualworld/optimization_code_vw
+cd /root/visualworld-main/optimization_code_vw
 make
 ```
 
@@ -29,7 +29,7 @@ Cela va :
 Si vous préférez compiler manuellement :
 
 ```bash
-cd /root/visualworld/optimization_code_vw
+cd /root/visualworld-main/optimization_code_vw
 mkdir -p obj Output log
 
 # Compilation de tous les fichiers

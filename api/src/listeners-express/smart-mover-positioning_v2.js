@@ -1,10 +1,10 @@
-// /root/visualworld/api/src/listeners-express/smart-mover-positioning.js
+// /root/visualworld-main/api/src/listeners-express/smart-mover-positioning.js
 // -*- coding: utf-8 -*-
 
 import { spawn } from "child_process";
 
-const SCRIPT = "/root/visualworld/smartmover_v4.cjs";
-const CWD = "/root/visualworld";
+const SCRIPT = "/root/visualworld-main/smartmover_v4.cjs";
+const CWD = "/root/visualworld-main";
 
 const state = {
   running: false,

@@ -14,7 +14,7 @@ export default async (express) => {
             try {
                 console.log("📥 Début de la réception du fichier Excel");
                 // Définir le chemin de destination
-                const filePath = "/root/visualworld/DataFile/InputDataOptimization.xlsx";
+                const filePath = "/root/visualworld-main/DataFile/InputDataOptimization.xlsx";
                 const dir = path.dirname(filePath);
 
                 // Créer le dossier DataFile s'il n'existe pas

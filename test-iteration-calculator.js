@@ -41,10 +41,10 @@ async function testCalculator() {
     // Test 4: Vérifier l'existence des fichiers
     console.log('📂 Test 4: Vérification des fichiers');
     const filesToCheck = [
-        '/root/visualworld/DataFile/InputDataOptimization.xlsx',
-        '/root/visualworld/OptimizationCode/ExternScript/InputOutputData/InputDataOptimization.xlsx',
-        '/root/visualworld/OptimizationCode/ExternScript/InputOutputData/InputDataOptimization.csv',
-        '/root/visualworld/InputDataOptimization.xlsx'
+        '/root/visualworld-main/DataFile/InputDataOptimization.xlsx',
+        '/root/visualworld-main/OptimizationCode/ExternScript/InputOutputData/InputDataOptimization.xlsx',
+        '/root/visualworld-main/OptimizationCode/ExternScript/InputOutputData/InputDataOptimization.csv',
+        '/root/visualworld-main/InputDataOptimization.xlsx'
     ];
 
     filesToCheck.forEach(filePath => {

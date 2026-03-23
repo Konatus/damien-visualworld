@@ -1,12 +1,12 @@
-// /root/visualworld/api/src/listeners-express/konatus-options.js
+// /root/visualworld-main/api/src/listeners-express/konatus-options.js
 // -*- coding: utf-8 -*-
 
 import fs from "fs";
 
-const OPTIONS_PATH = "/root/visualworld/DataFile/konatus_options.json";
+const OPTIONS_PATH = "/root/visualworld-main/DataFile/konatus_options.json";
 
 function ensureDir() {
-  fs.mkdirSync("/root/visualworld/DataFile", { recursive: true });
+  fs.mkdirSync("/root/visualworld-main/DataFile", { recursive: true });
 }
 
 function readOptions() {

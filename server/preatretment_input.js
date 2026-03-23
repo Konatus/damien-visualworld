@@ -1,11 +1,11 @@
-// /root/visualworld/server/preatretment_input.js
+// /root/visualworld-main/server/preatretment_input.js
 // -*- coding: utf-8 -*-
 
 const Excel = require("exceljs");
 
 // Input & output Excel files
-const INPUT_FILE = "/root/visualworld/DataFile/InputDataOptimization.xlsx";
-const OUTPUT_FILE = "/root/visualworld/DataFile/InputDataOptimizationV1.xlsx";
+const INPUT_FILE = "/root/visualworld-main/DataFile/InputDataOptimization.xlsx";
+const OUTPUT_FILE = "/root/visualworld-main/DataFile/InputDataOptimizationV1.xlsx";
 
 // Mapping: project name -> prefix for its tasks
 const PROJECT_PREFIXES = {
@@ -165,7 +165,7 @@ async function runPretraitementInput() {
   const headerMap = buildHeaderMap(ws);
 
   // ? Find columns by headers (robust, avoids wrong indices)
-  const COL_MODEL = col(headerMap, "modèle", 1); // fallback A
+  const COL_MODEL = col(headerMap, "modï¿½le", 1); // fallback A
   const COL_NAME = col(headerMap, "name"); // required
   const COL_DUE_DATE = col(headerMap, "due_date"); // required
   const COL_FTE = col(headerMap, "fte");
@@ -184,7 +184,7 @@ async function runPretraitementInput() {
   if (missing.length) {
     throw new Error(
       `Colonnes introuvables dans "Objets": ${missing.join(", ")}. ` +
-        `Vérifie la ligne d'en-têtes (row 1) de InputDataOptimization.xlsx.`
+        `Vï¿½rifie la ligne d'en-tï¿½tes (row 1) de InputDataOptimization.xlsx.`
     );
   }
 

@@ -1,13 +1,13 @@
-// /root/visualworld/iteration-calculator.js
-// Module CommonJS utilisé par recalculate-iterations.js
+// /root/visualworld-main/iteration-calculator.js
+// Module CommonJS utilisï¿½ par recalculate-iterations.js
 //
 // ? ExcelJS (conserve formats/dates)
 // ? Headers row = 1
 // ? Remplit start_date depuis solution.csv
-// ? Calcule iteration & due_iteration en jours ouvrés (+ holidays.json optionnel)
-// ? Écrit OutputDataOptimizationV1.xlsx et vérifie qu'il existe
+// ? Calcule iteration & due_iteration en jours ouvrï¿½s (+ holidays.json optionnel)
+// ? ï¿½crit OutputDataOptimizationV1.xlsx et vï¿½rifie qu'il existe
 //
-// ? FIX: iterationDurationDays + startDate pilotés par l'UI (options)
+// ? FIX: iterationDurationDays + startDate pilotï¿½s par l'UI (options)
 
 const fs = require("fs");
 const path = require("path");
@@ -15,21 +15,21 @@ const ExcelJS = require("exceljs");
 
 // --------------------------------------------------------------------
 // Chemins des fichiers
-const INPUT_XLSX = "/root/visualworld/DataFile/InputDataOptimizationV1.xlsx";
-const OUT_V0_XLSX = "/root/visualworld/DataFile/OutputDataOptimizationV0.xlsx";
-const OUT_V1_XLSX = "/root/visualworld/DataFile/OutputDataOptimizationV1.xlsx";
+const INPUT_XLSX = "/root/visualworld-main/DataFile/InputDataOptimizationV1.xlsx";
+const OUT_V0_XLSX = "/root/visualworld-main/DataFile/OutputDataOptimizationV0.xlsx";
+const OUT_V1_XLSX = "/root/visualworld-main/DataFile/OutputDataOptimizationV1.xlsx";
 const SOLUTION_CSV =
-  "/root/visualworld/OptimizationCode/OptimizationAlgorithm/Output/solution.csv";
+  "/root/visualworld-main/OptimizationCode/OptimizationAlgorithm/Output/solution.csv";
 
-// Jours fériés optionnels
-const HOLIDAYS_JSON = "/root/visualworld/DataFile/holidays.json";
+// Jours fï¿½riï¿½s optionnels
+const HOLIDAYS_JSON = "/root/visualworld-main/DataFile/holidays.json";
 
 // --------------------------------------------------------------------
-// Paramètres fixes (hors options UI)
+// Paramï¿½tres fixes (hors options UI)
 const SHEET_NAME = "Objets";
 const DATE_FMT = "dd/mm/yyyy";
 
-// Colonnes dans solution.csv (1-based), séparateur détecté auto
+// Colonnes dans solution.csv (1-based), sï¿½parateur dï¿½tectï¿½ auto
 const COL_WE_NAME_SOL = 2;     // workelement_name
 const COL_START_DATE_SOL = 12; // start_date
 
@@ -44,7 +44,7 @@ function normalizeKey(s) {
   if (s == null) return "";
   let x = String(s).replace(/\u00A0/g, " ").trim().toLowerCase();
   x = x.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  x = x.replace(/[_\-–—/\\]+/g, " ");
+  x = x.replace(/[_\-ï¿½ï¿½/\\]+/g, " ");
   x = x.replace(/\s+/g, " ").trim();
   return x;
 }
@@ -145,7 +145,7 @@ function readSolutionMap() {
   const content = fs.readFileSync(SOLUTION_CSV, "utf8");
   const lines = content.split(/\r?\n/).filter((l) => l.trim().length > 0);
   if (lines.length <= 1) {
-    throw new Error("solution.csv ne contient pas de données (seulement l'entête ?)");
+    throw new Error("solution.csv ne contient pas de donnï¿½es (seulement l'entï¿½te ?)");
   }
 
   const sep = detectCsvSeparator(lines[0]);
@@ -167,7 +167,7 @@ function readSolutionMap() {
     map.set(normalizeKey(rawName), d);
   }
 
-  console.log(`? solution.csv: ${map.size} start_date chargées (sep="${sep}")`);
+  console.log(`? solution.csv: ${map.size} start_date chargï¿½es (sep="${sep}")`);
   return map;
 }
 
@@ -175,7 +175,7 @@ function loadHolidaysSet() {
   const set = new Set();
   if (!fs.existsSync(HOLIDAYS_JSON)) {
     console.warn(
-      `?? holidays.json introuvable (${HOLIDAYS_JSON}) -> sans jours fériés (weekend only).`
+      `?? holidays.json introuvable (${HOLIDAYS_JSON}) -> sans jours fï¿½riï¿½s (weekend only).`
     );
     return set;
   }
@@ -186,10 +186,10 @@ function loadHolidaysSet() {
       const d = parseDateAny(x);
       if (d) set.add(toYMD(d));
     }
-    console.log(`? Jours fériés chargés: ${set.size}`);
+    console.log(`? Jours fï¿½riï¿½s chargï¿½s: ${set.size}`);
     return set;
   } catch (e) {
-    console.warn(`?? holidays.json illisible -> ${e.message} -> sans jours fériés.`);
+    console.warn(`?? holidays.json illisible -> ${e.message} -> sans jours fï¿½riï¿½s.`);
     return set;
   }
 }
@@ -247,7 +247,7 @@ function buildHeaderIndexMap(ws, headerRowNumber = 1) {
   if (missing.length) {
     const sample = Object.keys(map).slice(0, 60).join(" | ");
     throw new Error(
-      `Headers manquants: ${missing.join(", ")}. Headers détectés(sample): ${sample}`
+      `Headers manquants: ${missing.join(", ")}. Headers dï¿½tectï¿½s(sample): ${sample}`
     );
   }
 
@@ -298,7 +298,7 @@ class IterationCalculator {
    * ? options attendues:
    *  - startDate: "yyyy-MM-dd" (ou autre parseable)
    *  - iterationDurationDays: number
-   *  - withGate: bool (pas utilisé ici, mais propagé pour cohérence)
+   *  - withGate: bool (pas utilisï¿½ ici, mais propagï¿½ pour cohï¿½rence)
    */
   async processOptimizationFiles(options = {}) {
     const results = [];
@@ -320,7 +320,7 @@ class IterationCalculator {
 
   async _processSingleFile(options = {}) {
     if (!fs.existsSync(INPUT_XLSX)) {
-      throw new Error(`Fichier d'entrée introuvable : ${INPUT_XLSX}`);
+      throw new Error(`Fichier d'entrï¿½e introuvable : ${INPUT_XLSX}`);
     }
 
     // ? Options UI (avec fallback sur 01-01-2025 et 14)
@@ -347,14 +347,14 @@ class IterationCalculator {
 
     // 3) Colonnes (headers row 1)
     const cols = buildHeaderIndexMap(ws, 1);
-    console.log("? Colonnes détectées:", cols);
+    console.log("? Colonnes dï¿½tectï¿½es:", cols);
 
     const firstDataRow = 2;
     const lastRow = findLastDataRow(ws, cols.name, firstDataRow);
     console.log(`? Data rows: ${firstDataRow}..${lastRow}`);
 
     if (lastRow < firstDataRow) {
-      throw new Error("Aucune ligne de données détectée (sheet vide ?).");
+      throw new Error("Aucune ligne de donnï¿½es dï¿½tectï¿½e (sheet vide ?).");
     }
 
     // 4) Maps
@@ -430,7 +430,7 @@ class IterationCalculator {
       `? Normalisation dates: due_date=${normDue}, due_start_date=${normDueStart}`
     );
 
-    // C) iteration (jours ouvrés) depuis start_date
+    // C) iteration (jours ouvrï¿½s) depuis start_date
     let itUpdates = 0;
     for (let r = firstDataRow; r <= lastRow; r++) {
       const row = ws.getRow(r);
@@ -453,7 +453,7 @@ class IterationCalculator {
 
     console.log(`? iteration updated: ${itUpdates} (ITERATION_DAYS=${ITERATION_DAYS})`);
 
-    // D) due_iteration (jours ouvrés) depuis due_start_date
+    // D) due_iteration (jours ouvrï¿½s) depuis due_start_date
     let dueItUpdates = 0;
     for (let r = firstDataRow; r <= lastRow; r++) {
       const row = ws.getRow(r);
@@ -476,19 +476,19 @@ class IterationCalculator {
 
     console.log(`? due_iteration updated: ${dueItUpdates} (ITERATION_DAYS=${ITERATION_DAYS})`);
 
-    // 6) Écrire V1
+    // 6) ï¿½crire V1
     fs.mkdirSync(path.dirname(OUT_V1_XLSX), { recursive: true });
     console.log("?? Writing:", OUT_V1_XLSX);
 
     await workbook.xlsx.writeFile(OUT_V1_XLSX);
 
     if (!fs.existsSync(OUT_V1_XLSX)) {
-      throw new Error(`Échec: le fichier n'a pas été créé => ${OUT_V1_XLSX}`);
+      throw new Error(`ï¿½chec: le fichier n'a pas ï¿½tï¿½ crï¿½ï¿½ => ${OUT_V1_XLSX}`);
     }
 
     const size = fs.statSync(OUT_V1_XLSX).size;
-    console.log(`? Output généré: ${OUT_V1_XLSX} (${size} bytes)`);
-    console.log(`?? Résumé -> processed=${processed}, updated=${updated}`);
+    console.log(`? Output gï¿½nï¿½rï¿½: ${OUT_V1_XLSX} (${size} bytes)`);
+    console.log(`?? Rï¿½sumï¿½ -> processed=${processed}, updated=${updated}`);
 
     return {
       filePath: OUT_V1_XLSX,

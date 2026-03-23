@@ -1,10 +1,10 @@
-// /root/visualworld/api/src/listeners-express/download-input-data-optimization.js
+// /root/visualworld-main/api/src/listeners-express/download-input-data-optimization.js
 // -*- coding: utf-8 -*-
 
 import fs from "fs";
 import path from "path";
 
-const FILE_PATH = "/root/visualworld/DataFile/InputDataOptimizationV1.xlsx";
+const FILE_PATH = "/root/visualworld-main/DataFile/InputDataOptimizationV1.xlsx";
 const FILE_NAME = "InputDataOptimizationV1.xlsx";
 
 export default (express) => {
@@ -21,10 +21,10 @@ export default (express) => {
         });
       }
 
-      // Téléchargement direct
+      // Tï¿½lï¿½chargement direct
       res.download(FILE_PATH, FILE_NAME, (downloadErr) => {
         if (downloadErr) {
-          console.error("[API] Erreur durant le téléchargement :", downloadErr);
+          console.error("[API] Erreur durant le tï¿½lï¿½chargement :", downloadErr);
           if (!res.headersSent) {
             res.status(500).json({
               success: false,

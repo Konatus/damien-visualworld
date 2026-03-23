@@ -1,10 +1,10 @@
-// /root/visualworld/api/src/listeners-express/smart-mover-positioning.js
+// /root/visualworld-main/api/src/listeners-express/smart-mover-positioning.js
 // -*- coding: utf-8 -*-
 
 import { spawn } from "child_process";
 
-const SCRIPT = "/root/visualworld/test-smart-mover-v4-project-rows.js";
-const CWD = "/root/visualworld";
+const SCRIPT = "/root/visualworld-main/test-smart-mover-v4-project-rows.js";
+const CWD = "/root/visualworld-main";
 
 const state = {
   running: false,
@@ -51,7 +51,7 @@ export default function registerSmartMoverPositioning(app) {
       const worldId = String(req.query.worldId || "").trim();
       const boardId = String(req.query.boardId || "").trim();
 
-      // gardés pour compatibilité avec le front, même si le script test ne les utilise pas
+      // gardï¿½s pour compatibilitï¿½ avec le front, mï¿½me si le script test ne les utilise pas
       const componentName = String(req.query.componentName || "K - Work Item").trim();
       const projectField = String(req.query.projectField || "project").trim();
       const dateField = String(req.query.dateField || "start_date_test").trim();

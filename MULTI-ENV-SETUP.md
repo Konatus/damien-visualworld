@@ -114,7 +114,7 @@ pm2 restart all
 
 ### 1. Développement sur DEV
 ```bash
-cd /root/visualworld-dev
+cd /root/visualworld-main-dev
 git checkout dev
 # ... faire des modifications ...
 git add .
@@ -124,27 +124,27 @@ git push origin dev
 
 ### 2. Test sur TEST
 ```bash
-cd /root/visualworld-test
+cd /root/visualworld-main-test
 git checkout test
 git pull origin test
 git merge dev
 git push origin test
 
 # Ou via la branche principale
-cd /root/visualworld-main
+cd /root/visualworld-main-main
 git checkout test
 git merge dev
 git push origin test
 
 # Puis mettre à jour le dossier test
-cd /root/visualworld-test
+cd /root/visualworld-main-test
 git pull origin test
 pm2 restart visualworld-api-test visualworld-front-test --update-env
 ```
 
 ### 3. Déploiement en PROD
 ```bash
-cd /root/visualworld-main
+cd /root/visualworld-main-main
 git checkout main
 git merge test
 git push origin main
@@ -171,7 +171,7 @@ pm2 restart <nom-service> --update-env
 
 # Supprimer et relancer
 pm2 delete <nom-service>
-pm2 start /root/visualworld-<env>/ecosystem.config.json
+pm2 start /root/visualworld-main-<env>/ecosystem.config.json
 ```
 
 ### Un port est déjà utilisé ?
@@ -202,7 +202,7 @@ systemctl restart nginx
 ### Les modifications ne sont pas prises en compte ?
 ```bash
 # S'assurer d'être sur la bonne branche
-cd /root/visualworld-<env>
+cd /root/visualworld-main-<env>
 git branch  # Vérifier la branche actuelle
 git pull origin <branche>
 
@@ -247,7 +247,7 @@ pm2 monit
 ### Sauvegardes
 ```bash
 # Base de données (si applicable)
-ls -lh /root/visualworld-backups/
+ls -lh /root/visualworld-main-backups/
 
 # PM2
 pm2 save

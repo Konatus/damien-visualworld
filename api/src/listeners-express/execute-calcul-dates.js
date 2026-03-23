@@ -1,6 +1,6 @@
 import { spawn } from "child_process";
 
-const OPTI_DIR = "/root/visualworld/OptimizationCode/OptimizationAlgorithm";
+const OPTI_DIR = "/root/visualworld-main/OptimizationCode/OptimizationAlgorithm";
 
 const optimizationState = {
   running: false,
@@ -66,8 +66,8 @@ function succeed(details = "") {
   optimizationState.done = true;
   optimizationState.success = true;
   optimizationState.percent = 100;
-  optimizationState.message = "Optimisation terminée";
-  optimizationState.details = details || "Programme terminé avec succès";
+  optimizationState.message = "Optimisation terminï¿½e";
+  optimizationState.details = details || "Programme terminï¿½ avec succï¿½s";
   optimizationState.endedAt = new Date().toISOString();
 }
 
@@ -76,10 +76,10 @@ function runOptimization() {
   optimizationState.running = true;
   optimizationState.startedAt = new Date().toISOString();
   optimizationState.percent = 1;
-  optimizationState.message = "Démarrage optimisation...";
+  optimizationState.message = "Dï¿½marrage optimisation...";
 
   const cmd = [
-    "cd /root/visualworld/OptimizationCode/OptimizationAlgorithm",
+    "cd /root/visualworld-main/OptimizationCode/OptimizationAlgorithm",
     "g++ -std=c++17 main.cpp Commun.cpp DateUtils.cpp Parameters.cpp Logger.cpp Data.cpp GeneticAlgo_Nokia.cpp GeneticAlgo.cpp AbstractGeneticAlgo.cpp -o program",
     "./program -p Input/parameters.txt",
   ].join(" && ");
@@ -131,13 +131,13 @@ function runOptimization() {
 
     if (code !== 0) {
       fail(
-        "Erreur lors de l'exécution du programme C++",
+        "Erreur lors de l'exï¿½cution du programme C++",
         stderrAll || stdoutAll || `Code retour: ${code}`
       );
       return;
     }
 
-    succeed(stdoutAll || "Programme terminé correctement");
+    succeed(stdoutAll || "Programme terminï¿½ correctement");
   });
 }
 
@@ -149,7 +149,7 @@ export default async (express) => {
       if (optimizationState.running) {
         return res.status(409).json({
           success: false,
-          message: "Une optimisation est déjà en cours",
+          message: "Une optimisation est dï¿½jï¿½ en cours",
         });
       }
 
@@ -157,7 +157,7 @@ export default async (express) => {
 
       return res.status(200).json({
         success: true,
-        message: "Optimisation démarrée",
+        message: "Optimisation dï¿½marrï¿½e",
       });
     } catch (error) {
       console.error("? /api/execute-calcul-dates:", error);

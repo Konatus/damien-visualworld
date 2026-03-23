@@ -52,7 +52,7 @@ n/2EhcXchXlboWyvoZqlAAAAFWdpdGh1Yi1hY3Rpb25zLWRlcGxveQ==
 Une fois les secrets configurés, testez avec :
 
 ```bash
-cd /root/visualworld-main
+cd /root/visualworld-main-main
 echo "# Test CI/CD" >> README.md
 git add README.md
 git commit -m "test: vérification pipeline CI/CD avec secrets"

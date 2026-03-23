@@ -1,8 +1,8 @@
 import { spawn } from "child_process";
 
 // Script de positionnement Jira optimisé
-const SCRIPT = "/root/visualworld/test-jira-mover.js";
-const CWD = "/root/visualworld";
+const SCRIPT = "/root/visualworld-main/test-jira-mover.js";
+const CWD = "/root/visualworld-main";
 
 const state = {
   running: false,
