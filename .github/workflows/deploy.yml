@@ -3,14 +3,10 @@ name: CI/CD Pipeline - VisualWorld
 on:
   push:
     branches:
-      - main      # Production
-      - test      # Test
-      - dev       # Development
+      - main      # Production uniquement pour le moment
   pull_request:
     branches:
       - main
-      - test
-      - dev
 
 env:
   NODE_VERSION: '18.20.8'
@@ -37,13 +33,6 @@ jobs:
       - name: Lint Frontend
         working-directory: ./front
         run: npm run lint || true
-      
-      - name: Build Frontend (optionnel pour dev/test)
-        working-directory: ./front
-        if: github.ref == 'refs/heads/main'
-        run: npm run build
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
 
   # Job 2: Tests de l'API
   api-test:
@@ -67,83 +56,7 @@ jobs:
         working-directory: ./api
         run: npm run lint || true
 
-  # Job 3: Déploiement sur DEV
-  deploy-dev:
-    name: Déploiement DEV
-    runs-on: ubuntu-latest
-    needs: [frontend-build, api-test]
-    if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
-    environment:
-      name: development
-      url: http://dev.damien.konatus.site
-    
-    steps:
-      - name: Déploiement DEV via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEV_SSH_HOST }}
-          username: ${{ secrets.DEV_SSH_USERNAME }}
-          key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.DEV_SSH_PORT || 22 }}
-          script: |
-            set -e
-            echo "🔧 Déploiement DEV..."
-            cd /root/visualworld-dev
-            git fetch origin dev
-            git reset --hard origin/dev
-            
-            # API
-            cd /root/visualworld-dev/api
-            npm install
-            pm2 restart visualworld-api-dev || pm2 start npm --name visualworld-api-dev -- start
-            
-            # Frontend
-            cd /root/visualworld-dev/front
-            npm install --legacy-peer-deps
-            pm2 restart visualworld-front-dev || pm2 start npm --name visualworld-front-dev -- run serve
-            
-            pm2 save
-            echo "✅ Déploiement DEV terminé!"
-
-  # Job 4: Déploiement sur TEST
-  deploy-test:
-    name: Déploiement TEST
-    runs-on: ubuntu-latest
-    needs: [frontend-build, api-test]
-    if: github.ref == 'refs/heads/test' && github.event_name == 'push'
-    environment:
-      name: test
-      url: http://test.damien.konatus.site
-    
-    steps:
-      - name: Déploiement TEST via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.TEST_SSH_HOST }}
-          username: ${{ secrets.TEST_SSH_USERNAME }}
-          key: ${{ secrets.TEST_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.TEST_SSH_PORT || 22 }}
-          script: |
-            set -e
-            echo "🧪 Déploiement TEST..."
-            cd /root/visualworld-test
-            git fetch origin test
-            git reset --hard origin/test
-            
-            # API
-            cd /root/visualworld-test/api
-            npm install
-            pm2 restart visualworld-api-test || pm2 start npm --name visualworld-api-test -- start
-            
-            # Frontend
-            cd /root/visualworld-test/front
-            npm install --legacy-peer-deps
-            pm2 restart visualworld-front-test || pm2 start npm --name visualworld-front-test -- run serve
-            
-            pm2 save
-            echo "✅ Déploiement TEST terminé!"
-
-  # Job 5: Déploiement sur PRODUCTION
+  # Job 3: Déploiement sur PRODUCTION
   deploy-prod:
     name: Déploiement PRODUCTION
     runs-on: ubuntu-latest
@@ -248,31 +161,20 @@ jobs:
             echo "✅ Déploiement validé!"
             pm2 status
 
-  # Job 6: Notification
+  # Job 4: Notification
   notify:
     name: Notification
     runs-on: ubuntu-latest
-    needs: [deploy-dev, deploy-test, deploy-prod]
-    if: always() && (needs.deploy-dev.result != 'skipped' || needs.deploy-test.result != 'skipped' || needs.deploy-prod.result != 'skipped')
+    needs: [deploy-prod]
+    if: always()
     
     steps:
-      - name: Notification de succès DEV
-        if: needs.deploy-dev.result == 'success'
-        run: echo "✅ Déploiement DEV réussi sur http://dev.damien.konatus.site/"
-      
-      - name: Notification de succès TEST
-        if: needs.deploy-test.result == 'success'
-        run: echo "✅ Déploiement TEST réussi sur http://test.damien.konatus.site/"
-      
       - name: Notification de succès PROD
         if: needs.deploy-prod.result == 'success'
         run: echo "✅ Déploiement PRODUCTION réussi sur http://damien.konatus.site/"
       
       - name: Notification d'échec
-        if: |
-          needs.deploy-dev.result == 'failure' ||
-          needs.deploy-test.result == 'failure' ||
-          needs.deploy-prod.result == 'failure'
+        if: needs.deploy-prod.result == 'failure'
         run: |
-          echo "❌ Un déploiement a échoué"
+          echo "❌ Le déploiement PRODUCTION a échoué"
           exit 1
