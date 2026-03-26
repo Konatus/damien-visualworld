@@ -59,16 +59,17 @@ export default async (express) => {
   );
 
   /* ==============================
-     CORS (uniquement hors production)
+     CORS - Autoriser toutes les origines
      ============================== */
-  if (!CONF.IS_PRODUCTION) {
-    express.use(
-      Cors({
-        origin: ["http://localhost", "http://87.106.255.115:3333"],
-        optionsSuccessStatus: 200,
-      })
-    );
-  }
+  express.use(
+    Cors({
+      origin: true,
+      credentials: true,
+      optionsSuccessStatus: 200,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'X-Forwarded-Email', 'X-Forwarded-Access-Token', 'X-Requested-With'],
+    })
+  );
 
   /* ==============================
      Middleware pour req.me
