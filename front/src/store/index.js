@@ -257,6 +257,10 @@ const mutations = {
                         "jira-issue",
                         socketOn(this, scope, "jiraUse/issue")
                     );
+                    boardSocket.on("jira-team", ({ document }) => {
+                        this.commit("jiraUse/team/set", document);
+                        this.commit("jiraUse/team/setLoading", false);
+                    });
                 }
             }
 

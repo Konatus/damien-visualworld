@@ -1,4 +1,4 @@
-// /root/visualworld-main/api/src/listeners-express/index.js
+// /root/visualworld/api/src/listeners-express/index.js
 
 import CONF from "../conf.js";
 import Cors from "cors";
@@ -41,6 +41,7 @@ import registerVerifyBeforeOptimization from "./verify-before-optimization.js";
 
 // Options Konatus (gate/date/dur?e) (POST/GET /api/konatus-options)
 import konatusOptions from "./konatus-options.js";
+import jiraTeamCheck from "./jira-team-check.js";
 
 export default async (express) => {
   /* ==============================
@@ -59,17 +60,27 @@ export default async (express) => {
   );
 
   /* ==============================
-     CORS - Autoriser toutes les origines
+     CORS (uniquement hors production)
      ============================== */
-  express.use(
-    Cors({
-      origin: true,
-      credentials: true,
-      optionsSuccessStatus: 200,
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization', 'X-Forwarded-Email', 'X-Forwarded-Access-Token', 'X-Requested-With'],
-    })
-  );
+  if (!CONF.IS_PRODUCTION) {
+    express.use(
+      Cors({
+        origin: [
+          "http://localhost",
+          "http://localhost:3333",
+          "http://localhost:8080",
+          "http://87.106.255.115:3333",
+          "http://87.106.255.115:3334",
+          "http://87.106.255.115:3335",
+          "http://damien.konatus.site",
+          "http://dev.damien.konatus.site",
+          "http://test.damien.konatus.site"
+        ],
+        credentials: true,
+        optionsSuccessStatus: 200,
+      })
+    );
+  }
 
   /* ==============================
      Middleware pour req.me
@@ -99,6 +110,9 @@ export default async (express) => {
 
   // ? Options Konatus (Gate/Date/Dur?e it?ration)
   konatusOptions(express);
+
+  // Vérification mapping équipes Jira
+  jiraTeamCheck(express);
 
   // Export / Import
   boardIo(express);

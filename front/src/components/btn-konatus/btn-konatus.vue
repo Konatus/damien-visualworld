@@ -462,6 +462,7 @@ const TARGET_BOARD_BY_CONTEXT = {
   demo2contexte: "690a1d27ee300fc9f6ee5ae9",
   demo3contexte: "693fc24fd7aa7f89fcf3ef48",
   demo3bcontexte: "695b7ce65d95bf117f328c6c",
+  demo4contexte: "6995b5f8de97794d98028fd0",
 };
 
 export default {
@@ -912,6 +913,7 @@ export default {
       if (label.includes("demo2contexte")) return "demo2contexte";
       if (label.includes("demo3bcontexte")) return "demo3bcontexte";
       if (label.includes("demo3contexte")) return "demo3contexte";
+      if (label.includes("demo4contexte")) return "demo4contexte";
       return null;
     },
 
@@ -1268,53 +1270,59 @@ export default {
 
     async processContexteExportPlusCapaciteReponse(contexteBoardIo) {
   const CELL_MAX_LENGTH = 32765;
-  if (!contexteBoardIo?.data?.VW?.objects) throw new Error("Pas de données export");
+
+  if (!contexteBoardIo?.data?.VW?.objects) {
+    throw new Error("Pas de données export");
+  }
 
   const { objects, links } = contexteBoardIo.data.VW;
-  const projectDueDateMap = {};
-
-objects.forEach((obj) => {
-  const d = obj.object?.data || {};
-  const projectName = (d.name || "").trim();
-  const dueDate =
-    d.due_date ||
-    d.due_start_date ||
-    d.end_date_demande ||
-    "";
-
-  if (projectName && dueDate) {
-    projectDueDateMap[projectName] = dueDate;
-  }
-});
 
   const formattedObjects = objects.map((item) => {
     const data = this.mapValues(item.object?.data || {}, (property) => {
       if (property === null || property === undefined) return "";
       if (property?.[0]?.fileName) return property[0].fileName;
+
       if (typeof property === "string" && property.length > CELL_MAX_LENGTH) {
         return property.slice(0, CELL_MAX_LENGTH);
       }
+
       return property;
     });
 
     this.normalizeDateFields(data);
 
-    if (!data.due_date) {
-  data.due_date =
-    data.due_date_export ||
-    projectDueDateMap[data.project] ||
-    data.due_start_date ||
-    data.end_date_demande ||
-    data.start_date_test ||
-    data.start_date ||
-    "";
-}
+    // Ne pas forcer due_date ici :
+    // elle doit rester vide si absente, pour être héritée plus tard du parent
+    if (
+      data.due_date === undefined ||
+      data.due_date === null ||
+      String(data.due_date).trim() === ""
+    ) {
+      data.due_date = "";
+    }
 
-    if (!data.due_start_date) {
+    // due_start_date peut être préparée sans copier due_date
+    if (
+      data.due_start_date === undefined ||
+      data.due_start_date === null ||
+      String(data.due_start_date).trim() === ""
+    ) {
       data.due_start_date =
         data.start_date_test ||
         data.start_date ||
-        data.due_date ||
+        "";
+    }
+
+    // Harmonisation de la priorité
+    if (
+      data.priority === undefined ||
+      data.priority === null ||
+      String(data.priority).trim() === ""
+    ) {
+      data.priority =
+        data.attributepriority ??
+        data.att_priority ??
+        data.priorite ??
         "";
     }
 
@@ -1322,21 +1330,36 @@ objects.forEach((obj) => {
       {
         [this.$t("xlsx_export.headings.componentName")]:
           this.$store.getters[`componentAlive/nameById`](item.componentId),
-        [this.$t("xlsx_export.headings.left")]: Math.round(item.position.data.left),
-        [this.$t("xlsx_export.headings.top")]: Math.round(item.position.data.top),
-        [this.$t("xlsx_export.headings.width")]: Math.round(item.position.data.width),
-        [this.$t("xlsx_export.headings.height")]: Math.round(item.position.data.height),
-        [this.$t("xlsx_export.headings.zIndex")]: Math.round(item.position.data.zIndex),
+
+        [this.$t("xlsx_export.headings.left")]:
+          Math.round(item.position.data.left),
+
+        [this.$t("xlsx_export.headings.top")]:
+          Math.round(item.position.data.top),
+
+        [this.$t("xlsx_export.headings.width")]:
+          Math.round(item.position.data.width),
+
+        [this.$t("xlsx_export.headings.height")]:
+          Math.round(item.position.data.height),
+
+        [this.$t("xlsx_export.headings.zIndex")]:
+          Math.round(item.position.data.zIndex),
+
         [this.$t("xlsx_export.headings.rotation")]:
           Math.round(item.position.data.rotation) || 0,
+
         [this.$t("xlsx_export.headings.layer")]: this.$t(
           "xlsx_export.placeholders." +
             (item.position.protect.isBackground ? "background" : "foreground")
         ),
+
         [this.$t("xlsx_export.headings.styleBackgroundColor")]:
           item.object?.protect?.styleBackgroundColor,
+
         [this.$t("xlsx_export.headings.styleOutlineColor")]:
           item.object?.protect?.styleOutlineColor,
+
         [this.$t("xlsx_export.headings.styleColor")]:
           item.object?.protect?.styleColor,
       },
@@ -1352,6 +1375,7 @@ objects.forEach((obj) => {
           o.objectId &&
           o.objectId == item.objects[item.objects[0].data.arrowhead].objectId
       ),
+
     [this.$t("xlsx_export.headings.linkEnd")]:
       2 +
       objects.findIndex(
@@ -1359,15 +1383,19 @@ objects.forEach((obj) => {
           o.objectId &&
           o.objectId == item.objects[item.objects[1].data.arrowhead].objectId
       ),
+
     [this.$t("xlsx_export.headings.linkModel")]:
       this.$store.getters[`linkModelAlive/nameById`](item.linkModelId),
+
     [this.$t("xlsx_export.headings.label")]: item.data.title,
     [this.$t("xlsx_export.headings.color")]: item.data.color,
     [this.$t("xlsx_export.headings.size")]: item.data.size,
     [this.$t("xlsx_export.headings.curve")]: item.data.curve,
     [this.$t("xlsx_export.headings.dash")]: item.data.dash,
+
     [this.$t("xlsx_export.headings.originShape")]:
       item.objects[item.objects[0].data.arrowhead].data.type,
+
     [this.$t("xlsx_export.headings.endShape")]:
       item.objects[item.objects[1].data.arrowhead].data.type,
   }));
@@ -1378,20 +1406,27 @@ objects.forEach((obj) => {
   );
 
   await this.waitIfPausedOrCancelled("export");
-  const capacityResults = await this.calculateCapacityWithReponseBoard(this.form.tasksTable);
+
+  const capacityResults = await this.calculateCapacityWithReponseBoard(
+    this.form.tasksTable
+  );
+
   this.pushLog("export", `Lignes capacité : ${capacityResults?.length || 0}`);
 
   const workbook = this.XLSX.utils.book_new();
+
   this.XLSX.utils.book_append_sheet(
     workbook,
     this.XLSX.utils.json_to_sheet(formattedObjects),
     this.$t("xlsx_export.sheets.objects")
   );
+
   this.XLSX.utils.book_append_sheet(
     workbook,
     this.XLSX.utils.json_to_sheet(formattedLinks),
     this.$t("xlsx_export.sheets.links")
   );
+
   this.XLSX.utils.book_append_sheet(
     workbook,
     this.XLSX.utils.json_to_sheet(capacityResults),
@@ -1401,7 +1436,9 @@ objects.forEach((obj) => {
   this.lastInputWorkbook = workbook;
 
   await this.waitIfPausedOrCancelled("export");
+
   const buffer = this.XLSX.write(workbook, { type: "array" });
+
   const res = await fetch(`${this.baseUrl()}/api/save-input-data-optimization`, {
     method: "POST",
     body: buffer,
@@ -1410,7 +1447,10 @@ objects.forEach((obj) => {
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     },
   });
-  if (!res.ok) throw new Error(`Erreur sauvegarde ${res.status}`);
+
+  if (!res.ok) {
+    throw new Error(`Erreur sauvegarde ${res.status}`);
+  }
 },
 
     async phasePretraitAndVerify() {

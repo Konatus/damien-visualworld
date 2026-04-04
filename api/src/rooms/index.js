@@ -79,8 +79,8 @@ function emit(
       filterResponseWithScope === false || socket.me.response === true
         ? document // Response has not to be filtered or socket is allowed to all scope
         : document.filter(
-            (x) => x._id && socket.me.response.includes(x._id.toString())
-          ); // Filter response on white-listed scopes
+          (x) => x._id && socket.me.response.includes(x._id.toString())
+        ); // Filter response on white-listed scopes
 
     if (socket && socket.emit) {
       // socket may be null in case of REST request
@@ -203,6 +203,7 @@ export const jiraProject = room("jira-project", {
   filterResponseWithScope: false,
 });
 export const jiraIssue = room("jira-issue", { filterResponseWithScope: false });
+export const jiraTeam = room("jira-team", { filterResponseWithScope: false });
 
 const roomList = {
   transaction,
@@ -240,5 +241,6 @@ const roomList = {
   positionTrash,
   jiraProject,
   jiraIssue,
+  jiraTeam,
 };
 export default roomList;

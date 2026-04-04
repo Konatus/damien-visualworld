@@ -60,6 +60,7 @@ const BOARD_ANIMATOR = [
   "jira-project/get", // Projet JIRA
   "jira-issue/get", // Issue JIRA
   "jira-issue/create", // Crée un ticket JIRA
+  "jira-team/get", // Équipes JIRA
 ];
 const WORLD_OBSERVER = [
   // A participant or observer on - at least one board - receives following minimal grant on the world...
@@ -153,8 +154,8 @@ export default async ({ app, world, board }) => {
         ...(world[worldId].rootable && app.isRoot ? WORLD_ADMINISTRATOR : []),
         ...(world[worldId].demoAdministrator
           ? WORLD_ADMINISTRATOR.filter(
-              (item) => !WORLD_DEMO_EXCLUSION.includes(item)
-            )
+            (item) => !WORLD_DEMO_EXCLUSION.includes(item)
+          )
           : []),
       ]),
     ];
@@ -172,20 +173,20 @@ export default async ({ app, world, board }) => {
 
     const grant = board[boardId].template
       ? [
-          ...new Set([
-            // Template board
-            ...(world[worldId].modeler ? BOARD_ANIMATOR : []), // A modeler has board manager grants on templates
-            ...(hasAtLeastOneAnimatorGrant ? BOARD_OBSERVER : []), // An animator has observer grants on templates
-          ]),
-        ]
+        ...new Set([
+          // Template board
+          ...(world[worldId].modeler ? BOARD_ANIMATOR : []), // A modeler has board manager grants on templates
+          ...(hasAtLeastOneAnimatorGrant ? BOARD_OBSERVER : []), // An animator has observer grants on templates
+        ]),
+      ]
       : [
-          ...new Set([
-            // Usual board
-            ...(board[boardId].observer ? BOARD_OBSERVER : []),
-            ...(board[boardId].participant ? BOARD_PARTICIPANT : []),
-            ...(board[boardId].animator ? BOARD_ANIMATOR : []),
-          ]),
-        ];
+        ...new Set([
+          // Usual board
+          ...(board[boardId].observer ? BOARD_OBSERVER : []),
+          ...(board[boardId].participant ? BOARD_PARTICIPANT : []),
+          ...(board[boardId].animator ? BOARD_ANIMATOR : []),
+        ]),
+      ];
     if (grant.length) {
       boardGrant[boardId] = grant;
 

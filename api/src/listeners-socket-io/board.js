@@ -192,6 +192,11 @@ export default async (socket, scope) => {
       JiraUse.create(socket, scope, request)
     );
   }
+  if (socket.me.request.includes(`jira-team/get`)) {
+    socket.on(`jira-team/get`, (request) =>
+      JiraUse.team(socket, scope, request)
+    );
+  }
 
   if (socket.me.request.includes(`position-alive/list`)) {
     await positionAlive.join(socket, scope);

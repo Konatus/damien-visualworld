@@ -69,6 +69,20 @@
                 width="90"
             />
             <el-table-column
+                label="Team"
+                width="150"
+                show-overflow-tooltip
+            >
+                <template slot-scope="scope">
+                    <span v-if="scope.row.teamName" style="color: #606266">
+                        {{ scope.row.teamName }}
+                    </span>
+                    <span v-else style="color: #c0c4cc; font-style: italic">
+                        (non définie)
+                    </span>
+                </template>
+            </el-table-column>
+            <el-table-column
                 property="summary"
                 label="Summary"
                 show-overflow-tooltip
@@ -234,6 +248,8 @@ export default {
                           key: issue[0].key,
                           hasFields: !!issue[0].fields,
                           hasCreated: !!issue[0].fields?.created,
+                          hasCustomField10001: !!issue[0].fields?.customfield_10001,
+                          customField10001Value: issue[0].fields?.customfield_10001,
                           allKeys: Object.keys(issue[0]),
                       }
                     : null,
@@ -301,8 +317,22 @@ export default {
 
                       // Récupérer le team depuis Jira
                       const jiraTeam = item.fields?.[teamFieldKey];
-                      const jiraTeamName =
-                          jiraTeam?.name?.toLowerCase() || null;
+                      let jiraTeamName = null; // Nom original pour l'affichage
+                      
+                      // Gérer différents formats possibles du champ team
+                      if (jiraTeam) {
+                          if (typeof jiraTeam === 'string') {
+                              jiraTeamName = jiraTeam;
+                          } else if (Array.isArray(jiraTeam) && jiraTeam.length > 0) {
+                              // Si c'est un tableau, prendre le premier élément
+                              const firstTeam = jiraTeam[0];
+                              jiraTeamName = typeof firstTeam === 'string' ? firstTeam : firstTeam?.name || null;
+                          } else if (typeof jiraTeam === 'object') {
+                              jiraTeamName = jiraTeam.name || jiraTeam.title || jiraTeam.displayName || null;
+                          }
+                      }
+                      
+                      const jiraTeamNameNormalized = jiraTeamName?.toLowerCase()?.trim() || null; // Nom normalisé pour le mapping
 
                       console.log(
                           "[JIRA SYNC] Team extraction for",
@@ -310,8 +340,11 @@ export default {
                           ":",
                           {
                               teamFieldKey: teamFieldKey,
-                              jiraTeam: jiraTeam,
+                              jiraTeamRaw: jiraTeam,
+                              jiraTeamType: typeof jiraTeam,
+                              jiraTeamIsArray: Array.isArray(jiraTeam),
                               jiraTeamName: jiraTeamName,
+                              jiraTeamNameNormalized: jiraTeamNameNormalized,
                           }
                       );
 
@@ -360,6 +393,36 @@ export default {
                     .jira || {};
             return projects || [];
         },
+        
+        // Récupérer le mapping des teams Jira -> VW depuis la configuration
+        boardTeamMapping() {
+            return this.$store.getters["boardAlive/byId"](this.boardId)?.data?.jira?.teamMapping || [];
+        },
+        
+        teamMapping() {
+            const mapping = this.boardTeamMapping;
+            
+            // Créer une Map de lookup rapide : jiraTeamName -> vwTeamId
+            const lookupMap = new Map();
+            mapping.forEach((m) => {
+                // Mapping par ID Jira (prioritaire)
+                if (m.jiraTeamId && m.vwTeamId) {
+                    lookupMap.set(m.jiraTeamId.toLowerCase().trim(), m.vwTeamId);
+                }
+                // Mapping par nom Jira (fallback)
+                if (m.jiraTeamName && m.vwTeamId) {
+                    lookupMap.set(m.jiraTeamName.toLowerCase().trim(), m.vwTeamId);
+                }
+            });
+            
+            console.log("[JIRA SYNC] Team mapping configuration loaded:", {
+                mappingCount: mapping.length,
+                lookupKeys: Array.from(lookupMap.keys()),
+                fullMapping: mapping
+            });
+            return lookupMap;
+        },
+        
         maxResults() {
             const issue = this.$store.getters["jiraUse/issue/asArray"] || [];
             const [maxResults] = issue.map((item) => item.maxResults);
@@ -382,20 +445,6 @@ export default {
     },
 
     methods: {
-        // Mapper les noms de teams Jira vers les IDs VisualWorld
-        mapJiraTeamToVWId(jiraTeamName) {
-            const teamMapping = {
-                "team a": "1",
-                "team B": "2",
-                "team c": "3",
-                "team d": "4",
-                "team e": "5",
-                "team f": "6",
-            };
-
-            return teamMapping[jiraTeamName] || "2"; // Default: team 5
-        },
-
         doSelectIssue(row) {
             if (this.objectJiraKey.includes(row.key)) return 0;
             else return 1;
@@ -552,8 +601,21 @@ export default {
                     const duration = item.timeOriginalEstimate || 0;
                     const fte = duration > 0 && load > 0 ? load / duration : 1;
 
-                    // Mapper le team Jira vers l'ID VisualWorld
-                    const teamId = this.mapJiraTeamToVWId(item.teamName);
+                    // Mapper la team Jira vers l'ID VW via le mapping sauvegardé
+                    let teamId = "2"; // Default team si pas de mapping trouvé
+                    if (item.teamName) {
+                        const normalizedTeamName = item.teamName.toLowerCase().trim();
+                        teamId = this.teamMapping.get(normalizedTeamName) || "2";
+                        
+                        console.log("[JIRA SYNC] Team mapping for", item.key, ":", {
+                            jiraTeamName: item.teamName,
+                            normalized: normalizedTeamName,
+                            mappedTeamId: teamId,
+                            mappingFound: this.teamMapping.has(normalizedTeamName),
+                            availableMappings: Array.from(this.teamMapping.keys()),
+                            boardTeamMapping: this.boardTeamMapping
+                        });
+                    }
 
                     console.log(
                         "[JIRA SYNC] Work Item data for",
